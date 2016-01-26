@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="themesEntries">
+        <item>Tema leggero (default)</item>
+        <item>Tema scuro</item>
+        <item>Tema trasparente</item>
+        <item>Tema semi-trasparente</item>
+        <item>Tema scuro semi-trasparente</item>
+    </string-array>
+    <string-array name="themesValues">
+        <item>light</item>
+        <item>dark</item>
+        <item>transparent</item>
+        <item>semi-transparent</item>
+        <item>semi-transparent-dark</item>
+    </string-array>
+    <string-array name="sortAppListEntries">
+        <item>Dalla A alla Z</item>
+        <item>Dalla Z alla A</item>
+    </string-array>
+    <string-array name="sortAppListValues">
+        <item>alphabetical</item>
+        <item>invertedAlphabetical</item>
+    </string-array>
+</resources>
+
