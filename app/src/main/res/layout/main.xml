@@ -47,7 +47,7 @@
             android:onClick="onLauncherButtonClicked"
             android:paddingLeft="6dp"
             android:paddingRight="10dp"
-            android:src="@drawable/ic_launcher"
+            android:src="@drawable/ic_launcher_icon"
             android:tag="showMenu"/>
 
         <ProgressBar

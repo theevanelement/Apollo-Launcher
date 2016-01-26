@@ -135,5 +135,6 @@
     <string name="enable_phone">Populate history from phone calls</string>
     <string name="enable_app_desc">Add new apps to history</string>
     <string name="enable_app">Populate history from app install</string>
+    <string name="ui_empty_3_sub1">Apollo Launcher adapts to your habits</string>
 
 </resources>
