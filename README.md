@@ -1,1 +1,1 @@
-CIT 480 Oakland University
+Apollo Launcher 480 iteration 1
