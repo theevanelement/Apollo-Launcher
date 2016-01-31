@@ -44,4 +44,18 @@
         <item name="android:colorPrimaryDark">@color/kiss_green</item>
         <item name="android:navigationBarColor">@android:color/black</item>
     </style>
+
+    <style name="AppThemeDark" parent="BaseThemeDark">
+        <item name="android:windowShowWallpaper">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:textColor">@color/kiss_text_dark</item>
+        <item name="android:textColorSecondary">#7f7f7f</item>
+
+        <item name="searchColor">@color/kiss_text_dark</item>
+        <item name="resultColor">@color/kiss_text_dark</item>
+        <item name="listBackgroundColor">@color/kiss_list_background_inverse</item>
+        <item name="searchBackgroundColor">@color/kiss_list_background_inverse</item>
+        <item name="dividerDrawable">@drawable/list_separator_dark</item>
+        <item name="android:navigationBarColor">@color/transparent</item>
+    </style>
 </resources>

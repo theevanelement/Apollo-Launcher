@@ -64,7 +64,7 @@
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
+        android:label="Apollo Launcher"
         android:theme="@style/AppThemeLight">
 
         <!--
@@ -77,7 +77,7 @@
             android:name=".MainActivity"
             android:clearTaskOnLaunch="true"
             android:excludeFromRecents="true"
-            android:label="@string/app_name"
+            android:label="Apollo Launcher"
             android:launchMode="singleTask"
             android:screenOrientation="user"
             android:stateNotNeeded="true"
@@ -100,7 +100,7 @@
         </activity>
         <activity
             android:name="fr.neamar.kiss.SettingsActivity"
-            android:label="@string/activity_setting"
+            android:label="Apollo Settings"
             android:theme="@style/SettingTheme" />
 
         <!-- On new app installed or sdcard mount / unmount refresh the list -->

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="kiss_green">#4caf50</color>
+    <color name="kiss_green">#00000000</color>
     <color name="kiss_green_dark">#388E3C</color>
     <color name="kiss_text_dark">#b3b3b3</color>
     <color name="kiss_background">#eaeaea</color>
@@ -10,4 +10,5 @@
     <color name="kiss_background_light_transparent">#88FFFFFF</color>
     <color name="kiss_background_dark_transparent">#88222222</color>
     <color name="kiss_green_semitransparent">#884caf50</color>
+    <color name="transparent">#00000000</color>
 </resources>

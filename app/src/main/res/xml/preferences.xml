@@ -5,7 +5,7 @@
         <fr.neamar.kiss.preference.ResetPreference
             android:dialogMessage="@string/reset_warn"
             android:key="reset"
-            android:summary="@string/reset_desc"
+            android:summary="Reset your Apollo history"
             android:title="@string/reset_name" />
         <fr.neamar.kiss.preference.ResetFavoritesPreference
             android:dialogMessage="@string/reset_favorites_warn"
@@ -39,7 +39,7 @@
             android:entries="@array/themesEntries"
             android:entryValues="@array/themesValues"
             android:key="theme"
-            android:summary="@string/theme_desc"
+            android:summary="Update Apollo Theme"
             android:title="@string/theme_name" />
         <ListPreference
             android:defaultValue="invertedAlphabetical"
