@@ -65,7 +65,7 @@
         android:hardwareAccelerated="true"
         android:icon="@drawable/ic_launcher"
         android:label="Apollo Launcher"
-        android:theme="@style/AppThemeDark">
+        android:theme="@style/AppThemeLight">
 
         <!--
         clearTaskOnLaunch: when viewing kiss settings, display the main activity when pressing home https://github.com/Neamar/KISS/issues/117
