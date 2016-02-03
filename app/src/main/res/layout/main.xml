@@ -12,13 +12,17 @@
         android:id="@+id/analogClock"
         android:layout_below="@+id/main_kissbar"
         android:layout_centerHorizontal="true" />
-    <ListView
+    <GridView
         android:id="@android:id/list"
+        android:columnWidth="90dp"
+        android:numColumns="auto_fit"
+        android:gravity="center"
+        android:stretchMode="columnWidth"
+        android:layout_centerInParent="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_above="@+id/searchEditLayout"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="?attr/listBackgroundColor"
@@ -26,9 +30,8 @@
         android:divider="?attr/dividerDrawable"
         android:dividerHeight="1dp"
         android:elevation="2dp"
-        android:stackFromBottom="true"
         android:transcriptMode="alwaysScroll">
-    </ListView>
+    </GridView>
 
     <RelativeLayout
         android:id="@+id/searchEditLayout"
