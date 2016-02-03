@@ -17,7 +17,6 @@
         android:columnWidth="90dp"
         android:numColumns="auto_fit"
         android:gravity="center"
-        android:stretchMode="columnWidth"
         android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
