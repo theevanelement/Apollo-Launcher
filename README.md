@@ -1,1 +1,5 @@
-Apollo Launcher 480 iteration 1
+# Apollo-Launcher
+
+Oakland University Apollo Launcher
+CIT480
+Iteration 1
