@@ -14,3 +14,7 @@ local.properties
 /.settings/*
 .idea/
 *.iml
+
+# OS-specific files
+ehthumbs.db
+Thumbs.db
