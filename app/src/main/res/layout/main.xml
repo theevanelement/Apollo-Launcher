@@ -56,6 +56,21 @@
             android:src="@drawable/ic_launcher_icon"
             android:tag="showMenu"/>
 
+        <ImageView
+            android:id="@+id/launcherButton2"
+            android:layout_width="41dp"
+            android:layout_height="32dp"
+            android:layout_toEndOf="@id/launcherButton"
+            android:layout_toRightOf="@id/launcherButton"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/main_kiss"
+            android:focusable="true"
+            android:onClick="onLauncherButtonClicked"
+            android:paddingLeft="6dp"
+            android:paddingRight="10dp"
+            android:src="@drawable/ic_launcher_icon"
+            android:tag="showMenu"/>
+
         <ProgressBar
             android:id="@+id/loaderBar"
             android:layout_width="25dp"
@@ -74,7 +89,7 @@
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/launcherButton"
             android:layout_toLeftOf="@+id/clearButton"
-            android:layout_toRightOf="@+id/launcherButton"
+            android:layout_toRightOf="@+id/launcherButton2"
             android:layout_toStartOf="@+id/clearButton"
             android:background="?attr/searchBackgroundColor"
             android:hint="@string/ui_search_hint"
