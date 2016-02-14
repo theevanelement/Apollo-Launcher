@@ -155,7 +155,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_below="@android:id/list"
+        android:layout_above="@id/searchEditLayout"
         android:layout_margin="10dp"
         android:visibility="gone"/>
 
