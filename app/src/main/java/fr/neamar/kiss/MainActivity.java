@@ -102,6 +102,8 @@ public class MainActivity extends ListActivity implements QueryInterface {
      */
     private Searcher searcher;
 
+    private ListView resultsListView;
+
     /**
      * Called when the activity is first created.
      */
@@ -216,6 +218,9 @@ public class MainActivity extends ListActivity implements QueryInterface {
         kissBar = findViewById(R.id.main_kissbar);
         menuButton = findViewById(R.id.menuButton);
         registerForContextMenu(menuButton);
+
+        resultsListView = getListView();
+//        resultsListView = (ListView) findViewById(R.id.list);
 
         getListView().setLongClickable(true);
         getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -437,7 +442,33 @@ public class MainActivity extends ListActivity implements QueryInterface {
     public void onLauncherButtonClicked(View launcherButton) {
         // Display or hide the kiss bar, according to current view tag (showMenu / hideMenu).
 
-        displayKissBar(launcherButton.getTag().equals("showMenu"));
+//        displayKissBar(launcherButton.getTag().equals("showMenu"));
+
+        boolean display;
+
+        if (resultsListView.getVisibility() == View.VISIBLE) {
+            display = false;
+        } else {
+            display = true;
+        }
+
+        displayKissBar(display);
+    }
+
+    public void onShowFavoritesButtonClicked(View launcherButton) {
+        // Display or hide the kiss bar, according to current view tag (showMenu / hideMenu).
+
+//        displayFavoritesBar(launcherButton.getTag().equals("showMenu"));
+
+        boolean display;
+
+        if (kissBar.getVisibility() == View.VISIBLE) {
+            display = false;
+        } else {
+            display = true;
+        }
+
+        displayFavoritesBar(display);
     }
 
     public void onFavoriteButtonClicked(View favorite) {
@@ -454,6 +485,12 @@ public class MainActivity extends ListActivity implements QueryInterface {
                 result.fastLaunch(MainActivity.this);
             }
         }, KissApplication.TOUCH_DELAY);
+
+        // Can take out if we want. This is just so that the next time you press the Home button,
+        // it goes to the main screen and doesn't still have the Favorites displayed. The only downside
+        // is that you see it go away before the app loads so it doesn't look the best, but it's just
+        // aesthetic
+        kissBar.setVisibility(View.GONE);
     }
 
     private void displayClearOnInput() {
@@ -516,11 +553,81 @@ public class MainActivity extends ListActivity implements QueryInterface {
 
         if (display) {
             // Display the app list
+//            resultsListView.setAdapter(adapter);
+            kissBar.setVisibility(View.GONE);
+            resultsListView.setVisibility(View.VISIBLE);
+
             if (searcher != null) {
                 searcher.cancel(true);
             }
             searcher = new ApplicationsSearcher(MainActivity.this);
             searcher.execute();
+
+            // Reveal the bar
+//            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                Animator anim = ViewAnimationUtils.createCircularReveal(kissBar, cx, cy, 0, finalRadius);
+//                kissBar.setVisibility(View.VISIBLE);
+//                anim.start();
+//            } else {
+//                // No animation before Lollipop
+//                kissBar.setVisibility(View.VISIBLE);
+//            }
+
+            // Retrieve favorites. Try to retrieve more, since some favorites can't be displayed (e.g. search queries)
+//            retrieveFavorites();
+
+            hideKeyboard();
+        } else {
+            // Hide the bar
+//            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                Animator anim = ViewAnimationUtils.createCircularReveal(kissBar, cx, cy, finalRadius, 0);
+//                anim.addListener(new AnimatorListenerAdapter() {
+//                    @Override
+//                    public void onAnimationEnd(Animator animation) {
+//                        kissBar.setVisibility(View.GONE);
+////                        resultsListView.setVisibility(View.GONE);
+////                        adapter.setVisibility(0);
+//                        super.onAnimationEnd(animation);
+//                    }
+//                });
+//                anim.start();
+//            } else {
+//                // No animation before Lollipop
+//                kissBar.setVisibility(View.GONE);
+////                adapter.setVisibility(0);
+////                resultsListView.setVisibility(View.GONE);
+//            }
+
+//            searcher.onPostExecute();
+            resultsListView.setVisibility(View.GONE);
+//            resultsListView.setAdapter(null);
+
+//            kissBar.setVisibility(View.VISIBLE);
+//            kissBar.setVisibility(View.GONE);
+
+            searchEditText.setText("");
+        }
+    }
+
+    public void displayFavoritesBar(Boolean display) {
+        final ImageView launcherButton = (ImageView) findViewById(R.id.launcherButton2);
+
+        // get the center for the clipping circle
+        int cx = (launcherButton.getLeft() + launcherButton.getRight()) / 2;
+        int cy = (launcherButton.getTop() + launcherButton.getBottom()) / 2;
+
+        // get the final radius for the clipping circle
+        int finalRadius = Math.max(kissBar.getWidth(), kissBar.getHeight());
+
+        if (display) {
+//            // Display the app list
+//            if (searcher != null) {
+//                searcher.cancel(true);
+//            }
+//            searcher = new ApplicationsSearcher(MainActivity.this);
+//            searcher.execute();
+
+            resultsListView.setVisibility(View.GONE);
 
             // Reveal the bar
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

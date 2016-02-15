@@ -8,11 +8,10 @@
 
     <ImageView
         android:id="@+id/whiteLauncherButton"
-        android:layout_width="wrap_content"
+        android:layout_width="41dp"
         android:layout_height="32dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="6dp"
         android:contentDescription="@string/main_kiss_back"
         android:focusable="true"
         android:onClick="onLauncherButtonClicked"
@@ -20,7 +19,24 @@
         android:paddingLeft="1dp"
         android:paddingRight="4dp"
         android:paddingTop="4dp"
-        android:src="@drawable/ic_launcher_white"
+        android:src="@drawable/ic_launcher_icon"
+        android:tag="hideMenu"/>
+
+    <ImageView
+        android:id="@+id/whiteLauncherButton2"
+        android:layout_width="41dp"
+        android:layout_height="32dp"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/whiteLauncherButton"
+        android:layout_toRightOf="@id/whiteLauncherButton"
+        android:contentDescription="@string/main_kiss_back"
+        android:focusable="true"
+        android:onClick="onShowFavoritesButtonClicked"
+        android:paddingBottom="4dp"
+        android:paddingLeft="1dp"
+        android:paddingRight="4dp"
+        android:paddingTop="4dp"
+        android:src="@drawable/ic_launcher_icon"
         android:tag="hideMenu"/>
 
     <LinearLayout
@@ -33,9 +49,10 @@
 
         <ImageView
             android:id="@+id/favorite0"
-            android:layout_width="0px"
+            android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
+            android:layout_marginLeft="65dp"
+            android:layout_marginRight="15dp"
             android:contentDescription="@null"
             android:onClick="onFavoriteButtonClicked"
             android:src="@drawable/ic_contact"
@@ -44,9 +61,10 @@
 
         <ImageView
             android:id="@+id/favorite1"
-            android:layout_width="0px"
+            android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:contentDescription="@null"
             android:onClick="onFavoriteButtonClicked"
             android:src="@drawable/ic_contact"
@@ -54,9 +72,10 @@
 
         <ImageView
             android:id="@+id/favorite2"
-            android:layout_width="0px"
+            android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:contentDescription="@null"
             android:onClick="onFavoriteButtonClicked"
             android:src="@drawable/ic_contact"
@@ -64,9 +83,10 @@
 
         <ImageView
             android:id="@+id/favorite3"
-            android:layout_width="0px"
+            android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:contentDescription="@null"
             android:onClick="onFavoriteButtonClicked"
             android:src="@drawable/ic_contact"

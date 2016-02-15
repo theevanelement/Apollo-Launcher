@@ -12,23 +12,25 @@
         android:id="@+id/analogClock"
         android:layout_below="@+id/main_kissbar"
         android:layout_centerHorizontal="true" />
-    <ListView
-        android:id="@android:id/list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/searchEditLayout"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="?attr/listBackgroundColor"
-        android:cacheColorHint="@android:color/transparent"
-        android:divider="?attr/dividerDrawable"
-        android:dividerHeight="1dp"
-        android:elevation="2dp"
-        android:stackFromBottom="true"
-        android:transcriptMode="alwaysScroll">
-    </ListView>
+
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/searchEditLayout"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="?attr/listBackgroundColor"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="?attr/dividerDrawable"
+            android:dividerHeight="1dp"
+            android:elevation="2dp"
+            android:stackFromBottom="true"
+            android:transcriptMode="alwaysScroll">
+        </ListView>
+
 
     <RelativeLayout
         android:id="@+id/searchEditLayout"
@@ -65,7 +67,7 @@
             android:layout_centerVertical="true"
             android:contentDescription="@string/main_kiss"
             android:focusable="true"
-            android:onClick="onLauncherButtonClicked"
+            android:onClick="onShowFavoritesButtonClicked"
             android:paddingLeft="6dp"
             android:paddingRight="10dp"
             android:src="@drawable/ic_launcher_icon"
@@ -158,7 +160,5 @@
         android:layout_above="@id/searchEditLayout"
         android:layout_margin="10dp"
         android:visibility="gone"/>
-
-
 
 </RelativeLayout>
