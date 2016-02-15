@@ -609,7 +609,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
         }
     }
 
-    public void displayFavoritesBar(Boolean display) {
+    private void displayFavoritesBar(Boolean display) {
         final ImageView launcherButton = (ImageView) findViewById(R.id.launcherButton2);
 
         // get the center for the clipping circle
