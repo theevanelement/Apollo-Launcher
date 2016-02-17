@@ -60,5 +60,5 @@
             android:contentDescription="@null"
             android:onClick="onFavoriteButtonClicked"
             android:src="@drawable/ic_contact"
-            android:tag="3"/>
+            android:tag="4"/>
 </RelativeLayout>
