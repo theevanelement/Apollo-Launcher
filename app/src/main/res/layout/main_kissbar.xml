@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="240dp"
             android:layout_marginRight="15dp"
-            android:layout_above="@id/favorite4"
+            android:layout_below="@id/favorite2"
             android:contentDescription="@null"
             android:onClick="onFavoriteButtonClicked"
             android:src="@drawable/ic_contact"
