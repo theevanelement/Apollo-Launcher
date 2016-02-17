@@ -58,7 +58,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
     /**
      * IDS for the favorites buttons
      */
-    private final int[] favsIds = new int[]{R.id.favorite0, R.id.favorite1, R.id.favorite2, R.id.favorite3};
+    private final int[] favsIds = new int[]{R.id.favorite0, R.id.favorite1, R.id.favorite2, R.id.favorite3, R.id.favorite4};
 
     /**
      * Number of favorites to retrieve.

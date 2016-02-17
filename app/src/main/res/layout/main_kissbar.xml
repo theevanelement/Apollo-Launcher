@@ -6,47 +6,6 @@
                 android:clipToPadding="false"
                 android:elevation="2dp">
 
-    <ImageView
-        android:id="@+id/whiteLauncherButton"
-        android:layout_width="41dp"
-        android:layout_height="32dp"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:contentDescription="@string/main_kiss_back"
-        android:focusable="true"
-        android:onClick="onLauncherButtonClicked"
-        android:paddingBottom="4dp"
-        android:paddingLeft="1dp"
-        android:paddingRight="4dp"
-        android:paddingTop="4dp"
-        android:src="@drawable/ic_launcher_icon"
-        android:tag="hideMenu"/>
-
-    <ImageView
-        android:id="@+id/whiteLauncherButton2"
-        android:layout_width="41dp"
-        android:layout_height="32dp"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@id/whiteLauncherButton"
-        android:layout_toRightOf="@id/whiteLauncherButton"
-        android:contentDescription="@string/main_kiss_back"
-        android:focusable="true"
-        android:onClick="onShowFavoritesButtonClicked"
-        android:paddingBottom="4dp"
-        android:paddingLeft="1dp"
-        android:paddingRight="4dp"
-        android:paddingTop="4dp"
-        android:src="@drawable/ic_launcher_icon"
-        android:tag="hideMenu"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:layout_toRightOf="@+id/whiteLauncherButton"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="5dp">
-
         <ImageView
             android:id="@+id/favorite0"
             android:layout_width="wrap_content"
@@ -91,5 +50,15 @@
             android:onClick="onFavoriteButtonClicked"
             android:src="@drawable/ic_contact"
             android:tag="3"/>
-    </LinearLayout>
+
+        <ImageView
+            android:id="@+id/favorite4"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:contentDescription="@null"
+            android:onClick="onFavoriteButtonClicked"
+            android:src="@drawable/ic_contact"
+            android:tag="3"/>
 </RelativeLayout>

@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/analogClock"
-        android:layout_below="@+id/main_kissbar"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
         <ListView
@@ -157,7 +157,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@id/searchEditLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:layout_margin="10dp"
         android:visibility="gone"/>
 
