@@ -59,6 +59,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
      * IDS for the favorites buttons
      */
     private final int[] favsIds = new int[]{R.id.favorite0, R.id.favorite1, R.id.favorite2, R.id.favorite3, R.id.favorite4};
+    private final int[] favsCircleIds = new int[]{R.id.favcircle0, R.id.favcircle1, R.id.favcircle2, R.id.favcircle3, R.id.favcircle4};
 
     /**
      * Number of favorites to retrieve.
@@ -676,18 +677,21 @@ public class MainActivity extends ListActivity implements QueryInterface {
         for (int i = 0; i < Math.min(favsIds.length, favoritesPojo.size()); i++) {
             Pojo pojo = favoritesPojo.get(i);
             ImageView image = (ImageView) findViewById(favsIds[i]);
+            ImageView circle = (ImageView) findViewById(favsCircleIds[i]);
 
             Result result = Result.fromPojo(MainActivity.this, pojo);
             Drawable drawable = result.getDrawable(MainActivity.this);
             if (drawable != null)
                 image.setImageDrawable(drawable);
             image.setVisibility(View.VISIBLE);
+            circle.setVisibility(View.VISIBLE);
             image.setContentDescription(pojo.displayName);
         }
 
         // Hide empty favorites (not enough favorites yet)
         for (int i = favoritesPojo.size(); i < favsIds.length; i++) {
             findViewById(favsIds[i]).setVisibility(View.GONE);
+            findViewById(favsCircleIds[i]).setVisibility(View.GONE);
         }
     }
 
