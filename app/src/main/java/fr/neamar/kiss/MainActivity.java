@@ -258,6 +258,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
                 R.id.favorite1,
                 R.id.favorite2,
                 R.id.favorite3,
+                R.id.favorite4,
         };
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
