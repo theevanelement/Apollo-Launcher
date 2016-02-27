@@ -425,7 +425,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
     public void onMenuButtonClicked(View menuButton) {
         // When the kiss bar is displayed, the button can still be clicked in a few areas (due to favorite margin)
         // To fix this, we discard any click event occurring when the kissbar is displayed
-        if (kissBar.getVisibility() != View.VISIBLE)
+//        if (kissBar.getVisibility() != View.VISIBLE)
             menuButton.showContextMenu();
     }
 
