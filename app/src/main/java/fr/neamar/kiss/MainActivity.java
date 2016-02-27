@@ -32,6 +32,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -104,6 +105,9 @@ public class MainActivity extends ListActivity implements QueryInterface {
     private Searcher searcher;
 
     private ListView resultsListView;
+
+    private LinearLayout main_empty_layout;
+    private boolean isEmptyMenuVisible = false;
 
     /**
      * Called when the activity is first created.
@@ -222,6 +226,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
 
         resultsListView = getListView();
 //        resultsListView = (ListView) findViewById(R.id.list);
+        main_empty_layout = (LinearLayout) findViewById(R.id.main_empty);
 
         getListView().setLongClickable(true);
         getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -613,6 +618,8 @@ public class MainActivity extends ListActivity implements QueryInterface {
 
     private void displayFavoritesBar(Boolean display) {
         final ImageView launcherButton = (ImageView) findViewById(R.id.launcherButton2);
+        ArrayList<Pojo> favoritesPojo = KissApplication.getDataHandler(MainActivity.this)
+                .getFavorites(tryToRetrieve);
 
         // get the center for the clipping circle
         int cx = (launcherButton.getLeft() + launcherButton.getRight()) / 2;
@@ -630,15 +637,22 @@ public class MainActivity extends ListActivity implements QueryInterface {
 //            searcher.execute();
 
             resultsListView.setVisibility(View.GONE);
+            searchEditText.setText("");
 
-            // Reveal the bar
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                Animator anim = ViewAnimationUtils.createCircularReveal(kissBar, cx, cy, 0, finalRadius);
-                kissBar.setVisibility(View.VISIBLE);
-                anim.start();
-            } else {
-                // No animation before Lollipop
-                kissBar.setVisibility(View.VISIBLE);
+            if (isEmptyMenuVisible) {
+                main_empty_layout.setVisibility(View.VISIBLE);
+            }
+
+            if (favoritesPojo.size() > 0) {
+                // Reveal the bar
+                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    Animator anim = ViewAnimationUtils.createCircularReveal(kissBar, cx, cy, 0, finalRadius);
+                    kissBar.setVisibility(View.VISIBLE);
+                    anim.start();
+                } else {
+                    // No animation before Lollipop
+                    kissBar.setVisibility(View.VISIBLE);
+                }
             }
 
             // Retrieve favorites. Try to retrieve more, since some favorites can't be displayed (e.g. search queries)
@@ -661,6 +675,11 @@ public class MainActivity extends ListActivity implements QueryInterface {
                 // No animation before Lollipop
                 kissBar.setVisibility(View.GONE);
             }
+
+            if (isEmptyMenuVisible) {
+                main_empty_layout.setVisibility(View.VISIBLE);
+            }
+
             searchEditText.setText("");
         }
     }
@@ -668,10 +687,18 @@ public class MainActivity extends ListActivity implements QueryInterface {
     public void retrieveFavorites() {
         ArrayList<Pojo> favoritesPojo = KissApplication.getDataHandler(MainActivity.this)
                 .getFavorites(tryToRetrieve);
+        boolean isAtLeast1FavoriteApp = false;
 
         if (favoritesPojo.size() == 0) {
             Toast toast = Toast.makeText(MainActivity.this, getString(R.string.no_favorites), Toast.LENGTH_SHORT);
             toast.show();
+            isAtLeast1FavoriteApp = false;
+        } else if (favoritesPojo.size() > 0) {
+            isAtLeast1FavoriteApp = true;
+        }
+
+        if (isAtLeast1FavoriteApp && isEmptyMenuVisible) {
+            main_empty_layout.setVisibility(View.INVISIBLE);
         }
 
         // Don't look for items after favIds length, we won't be able to display them
@@ -713,11 +740,13 @@ public class MainActivity extends ListActivity implements QueryInterface {
                 searcher = new NullSearcher(this);
                 //Hide default scrollview
                 findViewById(R.id.main_empty).setVisibility(View.INVISIBLE);
+                isEmptyMenuVisible = false;
 
             } else {
                 searcher = new HistorySearcher(this);
                 //Show default scrollview
                 findViewById(R.id.main_empty).setVisibility(View.VISIBLE);
+                isEmptyMenuVisible = true;
             }
         } else {
             searcher = new QuerySearcher(this, query);
