@@ -28,12 +28,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
@@ -61,6 +65,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
      */
     private final int[] favsIds = new int[]{R.id.favorite0, R.id.favorite1, R.id.favorite2, R.id.favorite3, R.id.favorite4};
     private final int[] favsCircleIds = new int[]{R.id.favcircle0, R.id.favcircle1, R.id.favcircle2, R.id.favcircle3, R.id.favcircle4};
+    private final int[] favsLayoutIds = new int[]{R.id.fav_layout_0, R.id.fav_layout_1, R.id.fav_layout_2, R.id.fav_layout_3, R.id.fav_layout_4};
 
     /**
      * Number of favorites to retrieve.
@@ -621,20 +626,13 @@ public class MainActivity extends ListActivity implements QueryInterface {
         ArrayList<Pojo> favoritesPojo = KissApplication.getDataHandler(MainActivity.this)
                 .getFavorites(tryToRetrieve);
 
-        // get the center for the clipping circle
-        int cx = (launcherButton.getLeft() + launcherButton.getRight()) / 2;
-        int cy = (launcherButton.getTop() + launcherButton.getBottom()) / 2;
-
-        // get the final radius for the clipping circle
-        int finalRadius = Math.max(kissBar.getWidth(), kissBar.getHeight());
+        int location[] = {0, 0};
+        launcherButton.getLocationInWindow(location);
+        int startX = location[0];
+        int startY = location[1];
+        int duration = 300;
 
         if (display) {
-//            // Display the app list
-//            if (searcher != null) {
-//                searcher.cancel(true);
-//            }
-//            searcher = new ApplicationsSearcher(MainActivity.this);
-//            searcher.execute();
 
             resultsListView.setVisibility(View.GONE);
             searchEditText.setText("");
@@ -643,12 +641,30 @@ public class MainActivity extends ListActivity implements QueryInterface {
                 main_empty_layout.setVisibility(View.VISIBLE);
             }
 
+//            kissBar.setVisibility(View.INVISIBLE);
+
             if (favoritesPojo.size() > 0) {
-                // Reveal the bar
+
                 if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    Animator anim = ViewAnimationUtils.createCircularReveal(kissBar, cx, cy, 0, finalRadius);
-                    kissBar.setVisibility(View.VISIBLE);
-                    anim.start();
+
+                    for (int i = 0; i < favoritesPojo.size(); i++) {
+//                        if (i < 4) {
+                        FrameLayout layout = (FrameLayout) findViewById(favsLayoutIds[i]);
+
+                        int endLocation[] = {0, 0};
+                        layout.getLocationInWindow(endLocation);
+                        int endX = endLocation[0];
+                        int endY = endLocation[1];
+                        int deltaX = startX - endX;
+                        int deltaY = startY - endY;
+
+                        TranslateAnimation transAnimation = new TranslateAnimation(Animation.ABSOLUTE, deltaX, Animation.ABSOLUTE,
+                                0, Animation.ABSOLUTE, deltaY, Animation.ABSOLUTE, 0);
+                        transAnimation.setDuration(duration);
+//                        transAnimation.setStartOffset(0);
+                        kissBar.setVisibility(View.VISIBLE);
+                        layout.startAnimation(transAnimation);
+                    }
                 } else {
                     // No animation before Lollipop
                     kissBar.setVisibility(View.VISIBLE);
@@ -660,23 +676,50 @@ public class MainActivity extends ListActivity implements QueryInterface {
 
             hideKeyboard();
         } else {
-            // Hide the bar
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                Animator anim = ViewAnimationUtils.createCircularReveal(kissBar, cx, cy, finalRadius, 0);
-                anim.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        kissBar.setVisibility(View.GONE);
-                        super.onAnimationEnd(animation);
+
+            if (favoritesPojo.size() > 0) {
+                // Hide the bar
+                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    for (int i = 0; i < favoritesPojo.size(); i++) {
+//                        if (i < 4) {
+                        FrameLayout layout = (FrameLayout) findViewById(favsLayoutIds[i]);
+
+                        int endLocation[] = {0, 0};
+                        layout.getLocationInWindow(endLocation);
+                        int endX = endLocation[0];
+                        int endY = endLocation[1];
+                        int deltaX = startX - endX;
+                        int deltaY = startY - endY;
+
+                        TranslateAnimation transAnimation = new TranslateAnimation(Animation.ABSOLUTE, 0, Animation.ABSOLUTE,
+                                deltaX, Animation.ABSOLUTE, 0, Animation.ABSOLUTE, deltaY);
+                        transAnimation.setDuration(duration);
+//                        transAnimation.setStartOffset(0);
+//                        kissBar.setVisibility(View.GONE);
+                        layout.startAnimation(transAnimation);
+                        layout.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                kissBar.setVisibility(View.GONE);
+                            }
+                        }, duration);
                     }
-                });
-                anim.start();
-            } else {
-                // No animation before Lollipop
-                kissBar.setVisibility(View.GONE);
+                } else {
+                    // No animation before Lollipop
+                    kissBar.setVisibility(View.GONE);
+                }
             }
 
             if (isEmptyMenuVisible) {
+//                TranslateAnimation emptyMenuAnimation = new TranslateAnimation(0, 0, 0, 0);
+//                emptyMenuAnimation.setDuration(duration);
+//                main_empty_layout.startAnimation(emptyMenuAnimation);
+//                main_empty_layout.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        main_empty_layout.setVisibility(View.VISIBLE);
+//                    }
+//                }, duration);
                 main_empty_layout.setVisibility(View.VISIBLE);
             }
 
