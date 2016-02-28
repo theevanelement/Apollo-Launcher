@@ -28,12 +28,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
@@ -61,6 +64,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
      */
     private final int[] favsIds = new int[]{R.id.favorite0, R.id.favorite1, R.id.favorite2, R.id.favorite3, R.id.favorite4};
     private final int[] favsCircleIds = new int[]{R.id.favcircle0, R.id.favcircle1, R.id.favcircle2, R.id.favcircle3, R.id.favcircle4};
+    private final int[] favsLayoutIds = new int[]{R.id.fav_layout_0, R.id.fav_layout_1, R.id.fav_layout_2, R.id.fav_layout_3, R.id.fav_layout_4};
 
     /**
      * Number of favorites to retrieve.
@@ -644,15 +648,42 @@ public class MainActivity extends ListActivity implements QueryInterface {
             }
 
             if (favoritesPojo.size() > 0) {
-                // Reveal the bar
+
                 if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    Animator anim = ViewAnimationUtils.createCircularReveal(kissBar, cx, cy, 0, finalRadius);
-                    kissBar.setVisibility(View.VISIBLE);
-                    anim.start();
+
+                    for (int i = 0; i < favoritesPojo.size(); i++) {
+//                        if (i < 4) {
+                        FrameLayout layout = (FrameLayout) findViewById(favsLayoutIds[i]);
+                        int x = (layout.getRight() + layout.getLeft()) / 2;
+                        int y = (layout.getTop() + layout.getBottom()) / 2;
+                        TranslateAnimation transAnimation = new TranslateAnimation(cx, x, cy, y);
+                        transAnimation.setDuration(500);
+                        kissBar.setVisibility(View.VISIBLE);
+                        layout.startAnimation(transAnimation);
+//                        }
+//                        else if (i == 4) {
+//                            RelativeLayout layout = (RelativeLayout) findViewById(favsLayoutIds[i]);
+//                            int x = (layout.getRight() + layout.getLeft()) / 2;
+//                            int y = (layout.getTop() + layout.getBottom()) / 2;
+//                            TranslateAnimation transAnimation = new TranslateAnimation(cx, x, cy, y);
+//                            transAnimation.setDuration(2000);
+//                            layout.startAnimation(transAnimation);
+//                        }
+                    }
                 } else {
                     // No animation before Lollipop
                     kissBar.setVisibility(View.VISIBLE);
                 }
+
+                // Reveal the bar
+//                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                    Animator anim = ViewAnimationUtils.createCircularReveal(kissBar, cx, cy, 0, finalRadius);
+//                    kissBar.setVisibility(View.VISIBLE);
+//                    anim.start();
+//                } else {
+//                    // No animation before Lollipop
+//                    kissBar.setVisibility(View.VISIBLE);
+//                }
             }
 
             // Retrieve favorites. Try to retrieve more, since some favorites can't be displayed (e.g. search queries)
