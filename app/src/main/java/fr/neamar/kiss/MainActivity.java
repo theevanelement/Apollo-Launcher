@@ -28,6 +28,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -629,6 +630,15 @@ public class MainActivity extends ListActivity implements QueryInterface {
         int cx = (launcherButton.getLeft() + launcherButton.getRight()) / 2;
         int cy = (launcherButton.getTop() + launcherButton.getBottom()) / 2;
 
+        int location[] = {0, 0};
+        launcherButton.getLocationInWindow(location);
+        int startX = location[0];
+        int startY = location[1];
+
+        // *** JUST FOR TESTING***
+//        Toast toast = Toast.makeText(MainActivity.this, "startX = " + startX + "; startY = " + startY, Toast.LENGTH_SHORT);
+//        toast.show();
+
         // get the final radius for the clipping circle
         int finalRadius = Math.max(kissBar.getWidth(), kissBar.getHeight());
 
@@ -654,21 +664,23 @@ public class MainActivity extends ListActivity implements QueryInterface {
                     for (int i = 0; i < favoritesPojo.size(); i++) {
 //                        if (i < 4) {
                         FrameLayout layout = (FrameLayout) findViewById(favsLayoutIds[i]);
-                        int x = (layout.getRight() + layout.getLeft()) / 2;
-                        int y = (layout.getTop() + layout.getBottom()) / 2;
-                        TranslateAnimation transAnimation = new TranslateAnimation(cx, x, cy, y);
-                        transAnimation.setDuration(500);
+
+                        kissBar.setVisibility(View.INVISIBLE);
+                        int endLocation[] = {0, 0};
+                        layout.getLocationInWindow(endLocation);
+                        int endX = endLocation[0];
+                        int endY = endLocation[1];
+
+                        // *** TRYING USING DELTA COORDINATES
+                        int deltaX = startX - endX;
+                        int deltaY = startY - endY;
+
+                        TranslateAnimation transAnimation = new TranslateAnimation(Animation.ABSOLUTE, deltaX, Animation.ABSOLUTE,
+                                0, Animation.ABSOLUTE, deltaY, Animation.ABSOLUTE, 0);
+                        transAnimation.setDuration(300);
+//                        transAnimation.setStartOffset(0);
                         kissBar.setVisibility(View.VISIBLE);
                         layout.startAnimation(transAnimation);
-//                        }
-//                        else if (i == 4) {
-//                            RelativeLayout layout = (RelativeLayout) findViewById(favsLayoutIds[i]);
-//                            int x = (layout.getRight() + layout.getLeft()) / 2;
-//                            int y = (layout.getTop() + layout.getBottom()) / 2;
-//                            TranslateAnimation transAnimation = new TranslateAnimation(cx, x, cy, y);
-//                            transAnimation.setDuration(2000);
-//                            layout.startAnimation(transAnimation);
-//                        }
                     }
                 } else {
                     // No animation before Lollipop
@@ -691,20 +703,38 @@ public class MainActivity extends ListActivity implements QueryInterface {
 
             hideKeyboard();
         } else {
-            // Hide the bar
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                Animator anim = ViewAnimationUtils.createCircularReveal(kissBar, cx, cy, finalRadius, 0);
-                anim.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
+
+            if (favoritesPojo.size() > 0) {
+                // Hide the bar
+                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    for (int i = 0; i < favoritesPojo.size(); i++) {
+//                        if (i < 4) {
+                        FrameLayout layout = (FrameLayout) findViewById(favsLayoutIds[i]);
+
+                        kissBar.setVisibility(View.INVISIBLE);
+                        int endLocation[] = {0, 0};
+                        layout.getLocationInWindow(endLocation);
+                        int endX = endLocation[0];
+                        int endY = endLocation[1];
+
+                        // *** TRYING USING DELTA COORDINATES
+//                        int deltaX = startX - endX;
+//                        int deltaY = startY - endY;
+                        int deltaX = endX - startX;
+                        int deltaY = endY - startY;
+
+                        TranslateAnimation transAnimation = new TranslateAnimation(Animation.ABSOLUTE, 0, Animation.ABSOLUTE,
+                                deltaX, Animation.ABSOLUTE, 0, Animation.ABSOLUTE, deltaY);
+                        transAnimation.setDuration(300);
+//                        transAnimation.setStartOffset(0);
+//                        kissBar.setVisibility(View.GONE);
+                        layout.startAnimation(transAnimation);
                         kissBar.setVisibility(View.GONE);
-                        super.onAnimationEnd(animation);
                     }
-                });
-                anim.start();
-            } else {
-                // No animation before Lollipop
-                kissBar.setVisibility(View.GONE);
+                } else {
+                    // No animation before Lollipop
+                    kissBar.setVisibility(View.GONE);
+                }
             }
 
             if (isEmptyMenuVisible) {
