@@ -30,6 +30,7 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -248,6 +249,18 @@ public class MainActivity extends ListActivity implements QueryInterface {
 
         // Apply effects depending on current Android version
         applyDesignTweaks();
+
+        Button buttonFlash=(Button)findViewById(R.id.button);
+
+        buttonFlash.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                // Turn on the flashlight
+                return true;
+            }
+        });
+
+
     }
 
     /**
@@ -283,6 +296,9 @@ public class MainActivity extends ListActivity implements QueryInterface {
             }
         }
     }
+
+
+
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
