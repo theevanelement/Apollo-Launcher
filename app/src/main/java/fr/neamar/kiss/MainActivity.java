@@ -626,29 +626,13 @@ public class MainActivity extends ListActivity implements QueryInterface {
         ArrayList<Pojo> favoritesPojo = KissApplication.getDataHandler(MainActivity.this)
                 .getFavorites(tryToRetrieve);
 
-        // get the center for the clipping circle
-        int cx = (launcherButton.getLeft() + launcherButton.getRight()) / 2;
-        int cy = (launcherButton.getTop() + launcherButton.getBottom()) / 2;
-
         int location[] = {0, 0};
         launcherButton.getLocationInWindow(location);
         int startX = location[0];
         int startY = location[1];
-
-        // *** JUST FOR TESTING***
-//        Toast toast = Toast.makeText(MainActivity.this, "startX = " + startX + "; startY = " + startY, Toast.LENGTH_SHORT);
-//        toast.show();
-
-        // get the final radius for the clipping circle
-        int finalRadius = Math.max(kissBar.getWidth(), kissBar.getHeight());
+        int duration = 300;
 
         if (display) {
-//            // Display the app list
-//            if (searcher != null) {
-//                searcher.cancel(true);
-//            }
-//            searcher = new ApplicationsSearcher(MainActivity.this);
-//            searcher.execute();
 
             resultsListView.setVisibility(View.GONE);
             searchEditText.setText("");
@@ -656,6 +640,8 @@ public class MainActivity extends ListActivity implements QueryInterface {
             if (isEmptyMenuVisible) {
                 main_empty_layout.setVisibility(View.VISIBLE);
             }
+
+//            kissBar.setVisibility(View.INVISIBLE);
 
             if (favoritesPojo.size() > 0) {
 
@@ -665,19 +651,16 @@ public class MainActivity extends ListActivity implements QueryInterface {
 //                        if (i < 4) {
                         FrameLayout layout = (FrameLayout) findViewById(favsLayoutIds[i]);
 
-                        kissBar.setVisibility(View.INVISIBLE);
                         int endLocation[] = {0, 0};
                         layout.getLocationInWindow(endLocation);
                         int endX = endLocation[0];
                         int endY = endLocation[1];
-
-                        // *** TRYING USING DELTA COORDINATES
                         int deltaX = startX - endX;
                         int deltaY = startY - endY;
 
                         TranslateAnimation transAnimation = new TranslateAnimation(Animation.ABSOLUTE, deltaX, Animation.ABSOLUTE,
                                 0, Animation.ABSOLUTE, deltaY, Animation.ABSOLUTE, 0);
-                        transAnimation.setDuration(300);
+                        transAnimation.setDuration(duration);
 //                        transAnimation.setStartOffset(0);
                         kissBar.setVisibility(View.VISIBLE);
                         layout.startAnimation(transAnimation);
@@ -686,16 +669,6 @@ public class MainActivity extends ListActivity implements QueryInterface {
                     // No animation before Lollipop
                     kissBar.setVisibility(View.VISIBLE);
                 }
-
-                // Reveal the bar
-//                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                    Animator anim = ViewAnimationUtils.createCircularReveal(kissBar, cx, cy, 0, finalRadius);
-//                    kissBar.setVisibility(View.VISIBLE);
-//                    anim.start();
-//                } else {
-//                    // No animation before Lollipop
-//                    kissBar.setVisibility(View.VISIBLE);
-//                }
             }
 
             // Retrieve favorites. Try to retrieve more, since some favorites can't be displayed (e.g. search queries)
@@ -711,25 +684,25 @@ public class MainActivity extends ListActivity implements QueryInterface {
 //                        if (i < 4) {
                         FrameLayout layout = (FrameLayout) findViewById(favsLayoutIds[i]);
 
-                        kissBar.setVisibility(View.INVISIBLE);
                         int endLocation[] = {0, 0};
                         layout.getLocationInWindow(endLocation);
                         int endX = endLocation[0];
                         int endY = endLocation[1];
-
-                        // *** TRYING USING DELTA COORDINATES
-//                        int deltaX = startX - endX;
-//                        int deltaY = startY - endY;
-                        int deltaX = endX - startX;
-                        int deltaY = endY - startY;
+                        int deltaX = startX - endX;
+                        int deltaY = startY - endY;
 
                         TranslateAnimation transAnimation = new TranslateAnimation(Animation.ABSOLUTE, 0, Animation.ABSOLUTE,
                                 deltaX, Animation.ABSOLUTE, 0, Animation.ABSOLUTE, deltaY);
-                        transAnimation.setDuration(300);
+                        transAnimation.setDuration(duration);
 //                        transAnimation.setStartOffset(0);
 //                        kissBar.setVisibility(View.GONE);
                         layout.startAnimation(transAnimation);
-                        kissBar.setVisibility(View.GONE);
+                        layout.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                kissBar.setVisibility(View.GONE);
+                            }
+                        }, duration);
                     }
                 } else {
                     // No animation before Lollipop
@@ -738,6 +711,15 @@ public class MainActivity extends ListActivity implements QueryInterface {
             }
 
             if (isEmptyMenuVisible) {
+//                TranslateAnimation emptyMenuAnimation = new TranslateAnimation(0, 0, 0, 0);
+//                emptyMenuAnimation.setDuration(duration);
+//                main_empty_layout.startAnimation(emptyMenuAnimation);
+//                main_empty_layout.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        main_empty_layout.setVisibility(View.VISIBLE);
+//                    }
+//                }, duration);
                 main_empty_layout.setVisibility(View.VISIBLE);
             }
 
