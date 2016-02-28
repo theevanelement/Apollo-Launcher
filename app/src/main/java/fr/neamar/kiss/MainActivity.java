@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.hardware.Camera;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -109,6 +110,9 @@ public class MainActivity extends ListActivity implements QueryInterface {
 
     private LinearLayout main_empty_layout;
     private boolean isEmptyMenuVisible = false;
+
+    private Camera camera;
+    private boolean isFlashOn = false;
 
     /**
      * Called when the activity is first created.
@@ -251,12 +255,36 @@ public class MainActivity extends ListActivity implements QueryInterface {
         applyDesignTweaks();
 
         Button buttonFlash=(Button)findViewById(R.id.button);
+        camera = Camera.open();
+        final Camera.Parameters p = camera.getParameters();
 
-        buttonFlash.setOnLongClickListener(new View.OnLongClickListener() {
+        buttonFlash.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) {
+            public void onClick(View v) {
                 // Turn on the flashlight
-                return true;
+//                return true;
+                //If Flag is set to true
+                if (isFlashOn) {
+                    //Set the flashmode to off
+                    p.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+                    //Pass the parameter ti camera object
+                    camera.setParameters(p);
+                    //Set flag to false
+                    isFlashOn = false;
+                    //Set the button text to Torcn-ON
+                    //                    buttonFlash.setText("Torch-ON");
+                }
+                    //If Flag is set to false
+                else {
+                    //Set the flashmode to on
+                    p.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+                    //Pass the parameter ti camera object
+                    camera.setParameters(p);
+                    //Set flag to true
+                    isFlashOn = true;
+                    //Set the button text to Torcn-OFF
+                    //                    button.setText("Torch-OFF");
+                }
             }
         });
 
