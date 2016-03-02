@@ -100,7 +100,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/Layout0And4"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="-10dp"
         android:background="@color/kiss_green"
         android:clipToPadding="false"
         android:elevation="2dp">
@@ -114,7 +114,7 @@
                 android:id="@+id/fillerText4"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:visibility="visible" />
 
             <FrameLayout
@@ -177,7 +177,7 @@
                 android:id="@+id/fillerText6"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:visibility="visible" />
 
         </LinearLayout>
@@ -188,7 +188,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/Layout1And3"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="-30dp"
         android:background="@color/kiss_green"
         android:clipToPadding="false"
         android:elevation="2dp">
