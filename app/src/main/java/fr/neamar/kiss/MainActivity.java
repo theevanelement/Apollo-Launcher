@@ -63,15 +63,15 @@ public class MainActivity extends ListActivity implements QueryInterface {
     /**
      * IDS for the favorites buttons
      */
-    private final int[] favsIds = new int[]{R.id.favorite0, R.id.favorite1, R.id.favorite2, R.id.favorite3, R.id.favorite4};
-    private final int[] favsCircleIds = new int[]{R.id.favcircle0, R.id.favcircle1, R.id.favcircle2, R.id.favcircle3, R.id.favcircle4};
-    private final int[] favsLayoutIds = new int[]{R.id.fav_layout_0, R.id.fav_layout_1, R.id.fav_layout_2, R.id.fav_layout_3, R.id.fav_layout_4};
+    private final int[] favsIds = new int[]{R.id.favorite0, R.id.favorite1, R.id.favorite2, R.id.favorite3, R.id.favorite4, R.id.favorite5};
+    private final int[] favsCircleIds = new int[]{R.id.favcircle0, R.id.favcircle1, R.id.favcircle2, R.id.favcircle3, R.id.favcircle4, R.id.favcircle5};
+    private final int[] favsLayoutIds = new int[]{R.id.fav_layout_0, R.id.fav_layout_1, R.id.fav_layout_2, R.id.fav_layout_3, R.id.fav_layout_4, R.id.fav_layout_5};
 
     /**
      * Number of favorites to retrieve.
      * We need to pad this number to account for removed items still in history
      */
-    private final int tryToRetrieve = favsIds.length + 2;
+    private int tryToRetrieve = favsIds.length + 2;
     /**
      * InputType with spellecheck and swiping
      */
@@ -640,6 +640,11 @@ public class MainActivity extends ListActivity implements QueryInterface {
             if (isEmptyMenuVisible) {
                 main_empty_layout.setVisibility(View.VISIBLE);
             }
+
+            Toast toast = Toast.makeText(MainActivity.this, "favoritesPojo(i) = " + favoritesPojo.size(), Toast.LENGTH_SHORT);
+            toast.show();
+            Toast toast2 = Toast.makeText(MainActivity.this, "tryToRetrieve = " + tryToRetrieve, Toast.LENGTH_SHORT);
+            toast2.show();
 
 //            kissBar.setVisibility(View.INVISIBLE);
 
