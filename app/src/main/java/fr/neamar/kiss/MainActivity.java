@@ -29,6 +29,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.RotateAnimation;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -630,7 +632,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
         launcherButton.getLocationInWindow(location);
         int startX = location[0];
         int startY = location[1];
-        int duration = 300;
+        int duration = 1000; //Normally 300. Just made this 1000 to make the rotation more apparent. Can switch back to 300 after presentation.
 
         if (display) {
 
@@ -658,12 +660,19 @@ public class MainActivity extends ListActivity implements QueryInterface {
                         int deltaX = startX - endX;
                         int deltaY = startY - endY;
 
+                        AnimationSet animation = new AnimationSet(true);
+                        RotateAnimation rotateAnimation = new RotateAnimation(-180, 0, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                        rotateAnimation.setDuration(duration);
+                        animation.addAnimation(rotateAnimation);
+
                         TranslateAnimation transAnimation = new TranslateAnimation(Animation.ABSOLUTE, deltaX, Animation.ABSOLUTE,
                                 0, Animation.ABSOLUTE, deltaY, Animation.ABSOLUTE, 0);
                         transAnimation.setDuration(duration);
+                        animation.addAnimation(transAnimation);
+
 //                        transAnimation.setStartOffset(0);
                         kissBar.setVisibility(View.VISIBLE);
-                        layout.startAnimation(transAnimation);
+                        layout.startAnimation(animation);
                     }
                 } else {
                     // No animation before Lollipop
@@ -691,12 +700,18 @@ public class MainActivity extends ListActivity implements QueryInterface {
                         int deltaX = startX - endX;
                         int deltaY = startY - endY;
 
+                        AnimationSet animation = new AnimationSet(true);
+                        RotateAnimation rotateAnimation = new RotateAnimation(0, -180, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                        rotateAnimation.setDuration(duration);
+                        animation.addAnimation(rotateAnimation);
+
                         TranslateAnimation transAnimation = new TranslateAnimation(Animation.ABSOLUTE, 0, Animation.ABSOLUTE,
                                 deltaX, Animation.ABSOLUTE, 0, Animation.ABSOLUTE, deltaY);
                         transAnimation.setDuration(duration);
+                        animation.addAnimation(transAnimation);
 //                        transAnimation.setStartOffset(0);
 //                        kissBar.setVisibility(View.GONE);
-                        layout.startAnimation(transAnimation);
+                        layout.startAnimation(animation);
                         layout.postDelayed(new Runnable() {
                             @Override
                             public void run() {
