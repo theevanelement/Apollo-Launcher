@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -31,8 +32,8 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -53,6 +54,13 @@ import fr.neamar.kiss.searcher.QuerySearcher;
 import fr.neamar.kiss.searcher.Searcher;
 
 public class MainActivity extends ListActivity implements QueryInterface {
+
+    private ImageButton flashlight;
+    private Camera cam;
+    private Camera.Parameters par;
+    private boolean deviceFlash;
+    private boolean isOn = false;
+
 
     public static final String START_LOAD = "fr.neamar.summon.START_LOAD";
     public static final String LOAD_OVER = "fr.neamar.summon.LOAD_OVER";
@@ -111,8 +119,8 @@ public class MainActivity extends ListActivity implements QueryInterface {
     private LinearLayout main_empty_layout;
     private boolean isEmptyMenuVisible = false;
 
-    private Camera camera;
-    private boolean isFlashOn = false;
+
+
 
     /**
      * Called when the activity is first created.
@@ -135,6 +143,8 @@ public class MainActivity extends ListActivity implements QueryInterface {
         }
 
         super.onCreate(savedInstanceState);
+
+
 
         IntentFilter intentFilter = new IntentFilter(START_LOAD);
         IntentFilter intentFilterBis = new IntentFilter(LOAD_OVER);
@@ -254,42 +264,81 @@ public class MainActivity extends ListActivity implements QueryInterface {
         // Apply effects depending on current Android version
         applyDesignTweaks();
 
-        Button buttonFlash=(Button)findViewById(R.id.button);
-        camera = Camera.open();
-        final Camera.Parameters p = camera.getParameters();
 
-        buttonFlash.setOnClickListener(new View.OnClickListener() {
+        flashlight = (ImageButton)findViewById(R.id.flash_light);
+        deviceFlash = getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
+        if(!deviceFlash){
+            Toast.makeText(MainActivity.this, "Device does not have a camera", Toast.LENGTH_LONG).show();
+            return;
+        }
+        else{
+            this.cam = Camera.open(0);
+            par = this.cam.getParameters();
+
+        }
+        flashlight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Turn on the flashlight
-//                return true;
-                //If Flag is set to true
-                if (isFlashOn) {
-                    //Set the flashmode to off
-                    p.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-                    //Pass the parameter ti camera object
-                    camera.setParameters(p);
-                    //Set flag to false
-                    isFlashOn = false;
-                    //Set the button text to Torcn-ON
-                    //                    buttonFlash.setText("Torch-ON");
+                if(!isOn){
+                    turnOnFlash();
                 }
-                    //If Flag is set to false
-                else {
-                    //Set the flashmode to on
-                    p.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-                    //Pass the parameter ti camera object
-                    camera.setParameters(p);
-                    //Set flag to true
-                    isFlashOn = true;
-                    //Set the button text to Torcn-OFF
-                    //                    button.setText("Torch-OFF");
+                else{
+                    turnOffFlash();
                 }
             }
         });
 
-
     }
+
+    private  void turnOffFlash(){
+        par.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+        this.cam.setParameters(par);
+        this.cam.stopPreview();
+        isOn = false;
+        flashlight.setImageResource(R.drawable.buttonoff);
+    }
+
+    private void turnOnFlash(){
+        if(this.cam != null){
+            par = this.cam.getParameters();
+            par.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+            this.cam.setParameters(par);
+            this.cam.startPreview();
+            isOn = true;
+            flashlight.setImageResource(R.drawable.buttonon);
+
+        }
+    }
+
+    private void getCamera() {
+        if (cam == null) {
+            try {
+                cam = Camera.open();
+                par = cam.getParameters();
+            } catch (RuntimeException e) {
+                System.out.println("Error: Failed to Open: " + e.getMessage());
+            }
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(this.cam != null){
+            this.cam.release();
+            this.cam = null;
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getCamera();
+    }
+
+
+
+
 
     /**
      * Apply some tweaks to the design, depending on the current SDK version
@@ -390,6 +439,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
         }
 
         super.onResume();
+        turnOffFlash();
     }
 
     @Override
@@ -404,6 +454,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
     protected void onPause() {
         super.onPause();
         KissApplication.getCameraHandler().releaseCamera();
+        turnOffFlash();
     }
 
     @Override
