@@ -559,17 +559,29 @@ public class MainActivity extends ListActivity implements QueryInterface {
         final ImageView launcherButton = (ImageView) findViewById(R.id.launcherButton);
 
         // get the center for the clipping circle
-        int cx = (launcherButton.getLeft() + launcherButton.getRight()) / 2;
-        int cy = (launcherButton.getTop() + launcherButton.getBottom()) / 2;
+//        int cx = (launcherButton.getLeft() + launcherButton.getRight()) / 2;
+//        int cy = resultsListView.getHeight() - (launcherButton.getTop() + launcherButton.getBottom()) / 2;
+//        int cx = (resultsListView.getLeft() + resultsListView.getRight()) / 2;
+//        int cy = (resultsListView.getTop() + resultsListView.getBottom()) / 2;
+
+        int location[] = {0, 0};
+        launcherButton.getLocationInWindow(location);
+        int cx = location[0];
+        int cy = location[1];
+        int duration = 1000; //Normally 300. Can set to 1000 to show off animation more
 
         // get the final radius for the clipping circle
-        int finalRadius = Math.max(kissBar.getWidth(), kissBar.getHeight());
+//        int finalRadius = Math.max(kissBar.getWidth(), kissBar.getHeight());
+
+        // CH 3/7/16 - Multiplied this by 1.25 because it went a little away from the corner and then
+        // just instantly filled it without doing that corner in the animation because it was only doing it with the radius
+        // of the height of the screen. This was too short since it really needs to go from corner to corner.
+        int finalRadius = (int) Math.round(1.25 * (Math.max(resultsListView.getWidth(), resultsListView.getHeight())));
 
         if (display) {
             // Display the app list
 //            resultsListView.setAdapter(adapter);
             kissBar.setVisibility(View.GONE);
-            resultsListView.setVisibility(View.VISIBLE);
 
             if (searcher != null) {
                 searcher.cancel(true);
@@ -578,14 +590,15 @@ public class MainActivity extends ListActivity implements QueryInterface {
             searcher.execute();
 
             // Reveal the bar
-//            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                Animator anim = ViewAnimationUtils.createCircularReveal(kissBar, cx, cy, 0, finalRadius);
-//                kissBar.setVisibility(View.VISIBLE);
-//                anim.start();
-//            } else {
-//                // No animation before Lollipop
-//                kissBar.setVisibility(View.VISIBLE);
-//            }
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Animator anim = ViewAnimationUtils.createCircularReveal(resultsListView, cx, cy, 0, finalRadius);
+                anim.setDuration(duration);
+                resultsListView.setVisibility(View.VISIBLE);
+                anim.start();
+            } else {
+                // No animation before Lollipop
+                resultsListView.setVisibility(View.VISIBLE);
+            }
 
             // Retrieve favorites. Try to retrieve more, since some favorites can't be displayed (e.g. search queries)
 //            retrieveFavorites();
@@ -593,33 +606,26 @@ public class MainActivity extends ListActivity implements QueryInterface {
             hideKeyboard();
         } else {
             // Hide the bar
-//            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                Animator anim = ViewAnimationUtils.createCircularReveal(kissBar, cx, cy, finalRadius, 0);
-//                anim.addListener(new AnimatorListenerAdapter() {
-//                    @Override
-//                    public void onAnimationEnd(Animator animation) {
-//                        kissBar.setVisibility(View.GONE);
-////                        resultsListView.setVisibility(View.GONE);
-////                        adapter.setVisibility(0);
-//                        super.onAnimationEnd(animation);
-//                    }
-//                });
-//                anim.start();
-//            } else {
-//                // No animation before Lollipop
-//                kissBar.setVisibility(View.GONE);
-////                adapter.setVisibility(0);
-////                resultsListView.setVisibility(View.GONE);
-//            }
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
-//            searcher.onPostExecute();
-            resultsListView.setVisibility(View.GONE);
-//            resultsListView.setAdapter(null);
+                Animator anim = ViewAnimationUtils.createCircularReveal(resultsListView, cx, cy, finalRadius, 0);
+                anim.setDuration(duration);
 
-//            kissBar.setVisibility(View.VISIBLE);
-//            kissBar.setVisibility(View.GONE);
+                anim.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        resultsListView.setVisibility(View.GONE);
+                        searchEditText.setText("");
+                    }
+                });
+                anim.start();
 
-            searchEditText.setText("");
+            } else {
+                // No animation before Lollipop
+                resultsListView.setVisibility(View.GONE);
+                searchEditText.setText("");
+            }
         }
     }
 
@@ -632,7 +638,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
         launcherButton.getLocationInWindow(location);
         int startX = location[0];
         int startY = location[1];
-        int duration = 1000; //Normally 300. Just made this 1000 to make the rotation more apparent. Can switch back to 300 after presentation.
+        int duration = 300; //Normally 300. Can set to 1000 to show off animation more
 
         if (display) {
 
