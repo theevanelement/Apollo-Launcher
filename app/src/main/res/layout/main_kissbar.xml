@@ -62,7 +62,7 @@
                 android:id="@+id/fillerText2"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="10"
+                android:layout_weight="25"
                 android:visibility="visible" />
 
             <FrameLayout
@@ -106,7 +106,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/Layout0And5"
-        android:layout_marginBottom="-10dp"
+        android:layout_marginBottom="-15dp"
         android:background="@color/kiss_green"
         android:clipChildren="false"
         android:clipToPadding="false"
@@ -123,7 +123,7 @@
                 android:id="@+id/fillerText4"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1.5"
+                android:layout_weight="2"
                 android:visibility="visible" />
 
             <FrameLayout
@@ -155,7 +155,7 @@
                 android:id="@+id/fillerText5"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="4.5"
                 android:visibility="visible" />
 
             <FrameLayout
@@ -188,7 +188,7 @@
                 android:id="@+id/fillerText6"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1.5"
+                android:layout_weight="2"
                 android:visibility="visible" />
 
         </LinearLayout>
@@ -217,14 +217,14 @@
                     android:id="@+id/fillerText7"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1.5"
+                    android:layout_weight="25"
                     android:visibility="visible" />
 
                 <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/fav_layout_2"
-                    android:layout_weight="1" >
+                    android:layout_weight="2" >
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -248,14 +248,14 @@
                     android:id="@+id/fillerText8"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1.5"
+                    android:layout_weight="0"
                     android:visibility="visible" />
 
                 <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/fav_layout_3"
-                    android:layout_weight="1" >
+                    android:layout_weight="2" >
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -279,7 +279,7 @@
                     android:id="@+id/fillerText9"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1.5"
+                    android:layout_weight="25"
                     android:visibility="visible" />
 
         </LinearLayout>

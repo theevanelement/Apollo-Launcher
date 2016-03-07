@@ -269,6 +269,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
                 R.id.favorite2,
                 R.id.favorite3,
                 R.id.favorite4,
+                R.id.favorite5,
         };
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -640,11 +641,6 @@ public class MainActivity extends ListActivity implements QueryInterface {
             if (isEmptyMenuVisible) {
                 main_empty_layout.setVisibility(View.VISIBLE);
             }
-
-            Toast toast = Toast.makeText(MainActivity.this, "favoritesPojo(i) = " + favoritesPojo.size(), Toast.LENGTH_SHORT);
-            toast.show();
-            Toast toast2 = Toast.makeText(MainActivity.this, "tryToRetrieve = " + tryToRetrieve, Toast.LENGTH_SHORT);
-            toast2.show();
 
 //            kissBar.setVisibility(View.INVISIBLE);
 
