@@ -30,8 +30,7 @@
             android:dividerHeight="1dp"
             android:elevation="2dp"
             android:stackFromBottom="true"
-            android:transcriptMode="alwaysScroll"
-            android:visibility="invisible">
+            android:transcriptMode="alwaysScroll" >
         </ListView>
 
 
