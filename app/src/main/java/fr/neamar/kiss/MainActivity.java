@@ -28,6 +28,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.RotateAnimation;
@@ -491,6 +492,39 @@ public class MainActivity extends ListActivity implements QueryInterface {
         Pojo pojo = KissApplication.getDataHandler(MainActivity.this).getFavorites(tryToRetrieve)
                 .get(Integer.parseInt((String) favorite.getTag()));
         final Result result = Result.fromPojo(MainActivity.this, pojo);
+        ImageView selectedFavorite = (ImageView) findViewById(favorite.getId());
+        final FrameLayout favoriteLayout = (FrameLayout) favorite.getParent();
+
+        int location[] = {0, 0};
+        favoriteLayout.getLocationInWindow(location);
+        int cx = location[0];
+        int cy = location[1];
+        int duration = 1000; //Normally 300. Can set to 1000 to show off animation more
+
+//        int width = getApplicationContext().getResources().getDisplayMetrics().widthPixels;
+//        int height = getApplicationContext().getResources().getDisplayMetrics().heightPixels;
+        int width = 5000;
+        int height = 5000;
+//        int finalRadius = (int) Math.round(1.25 * (Math.max(Window.getWidth(), resultsListView.getHeight())));
+        int finalRadius = (int) Math.hypot(width - cx, height - cy);
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Animator anim = ViewAnimationUtils.createCircularReveal(favoriteLayout, cx, cy, 0, finalRadius);
+            anim.setDuration(duration);
+
+            anim.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+//                    kissBar.setVisibility(View.GONE);
+//                    searchEditText.setText("");
+                }
+            });
+            anim.start();
+        } else {
+            // No animation before Lollipop
+            kissBar.setVisibility(View.GONE);
+        }
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -504,7 +538,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
         // it goes to the main screen and doesn't still have the Favorites displayed. The only downside
         // is that you see it go away before the app loads so it doesn't look the best, but it's just
         // aesthetic
-        kissBar.setVisibility(View.GONE);
+//        kissBar.setVisibility(View.GONE);
     }
 
     private void displayClearOnInput() {
