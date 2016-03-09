@@ -69,6 +69,13 @@ public class MainActivity extends ListActivity implements QueryInterface {
     private final int[] favsCircleIds = new int[]{R.id.favcircle0, R.id.favcircle1, R.id.favcircle2, R.id.favcircle3, R.id.favcircle4};
     private final int[] favsLayoutIds = new int[]{R.id.fav_layout_0, R.id.fav_layout_1, R.id.fav_layout_2, R.id.fav_layout_3, R.id.fav_layout_4};
 
+    private final int[] favs_6icons_Ids = new int[]{R.id.favorite_6icons_0, R.id.favorite_6icons_1, R.id.favorite_6icons_2,
+    R.id.favorite_6icons_3, R.id.favorite_6icons_4, R.id.favorite_6icons_5};
+    private final int[] favsCircle_6icons_Ids = new int[] {R.id.favcircle_6icons_0, R.id.favcircle_6icons_1, R.id.favcircle_6icons_2,
+    R.id.favcircle_6icons_3, R.id.favcircle_6icons_4, R.id.favcircle_6icons_5};
+    private final int[] favsLayout_6icons_Ids = new int[] {R.id.fav_layout_6icons_0, R.id.fav_layout_6icons_1, R.id.fav_layout_6icons_2,
+    R.id.fav_layout_6icons_3, R.id.fav_layout_6icons_4, R.id.fav_layout_6icons_5};
+
     /**
      * Number of favorites to retrieve.
      * We need to pad this number to account for removed items still in history
@@ -106,6 +113,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
      * Kiss bar
      */
     private View kissBar;
+    private View kissBar_6icons;
     /**
      * Task launched on text change
      */
@@ -228,6 +236,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
         });
 
         kissBar = findViewById(R.id.main_kissbar);
+        kissBar_6icons = findViewById(R.id.main_kissbar_6icons);
         menuButton = findViewById(R.id.menuButton);
         registerForContextMenu(menuButton);
 
@@ -476,7 +485,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
 
         boolean display;
 
-        if (kissBar.getVisibility() == View.VISIBLE) {
+        if (kissBar.getVisibility() == View.VISIBLE || kissBar_6icons.getVisibility() == View.VISIBLE) {
             display = false;
         } else {
             display = true;
@@ -582,6 +591,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
             // Display the app list
 //            resultsListView.setAdapter(adapter);
             kissBar.setVisibility(View.GONE);
+            kissBar_6icons.setVisibility(View.GONE);
 
             if (searcher != null) {
                 searcher.cancel(true);
@@ -633,6 +643,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
         final ImageView launcherButton = (ImageView) findViewById(R.id.launcherButton2);
         ArrayList<Pojo> favoritesPojo = KissApplication.getDataHandler(MainActivity.this)
                 .getFavorites(tryToRetrieve);
+        int numberOfFavorites = favoritesPojo.size();
 
         int location[] = {0, 0};
         launcherButton.getLocationInWindow(location);
@@ -656,8 +667,13 @@ public class MainActivity extends ListActivity implements QueryInterface {
                 if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
                     for (int i = 0; i < favoritesPojo.size(); i++) {
-//                        if (i < 4) {
-                        FrameLayout layout = (FrameLayout) findViewById(favsLayoutIds[i]);
+                        FrameLayout layout;
+
+                        if (numberOfFavorites == 6) {
+                            layout = (FrameLayout) findViewById(favsLayout_6icons_Ids[i]);
+                        } else {
+                            layout = (FrameLayout) findViewById(favsLayoutIds[i]);
+                        }
 
                         int endLocation[] = {0, 0};
                         layout.getLocationInWindow(endLocation);
@@ -677,12 +693,20 @@ public class MainActivity extends ListActivity implements QueryInterface {
                         animation.addAnimation(transAnimation);
 
 //                        transAnimation.setStartOffset(0);
-                        kissBar.setVisibility(View.VISIBLE);
+                        if (numberOfFavorites == 6) {
+                            kissBar_6icons.setVisibility(View.VISIBLE);
+                        } else {
+                            kissBar.setVisibility(View.VISIBLE);
+                        }
                         layout.startAnimation(animation);
                     }
                 } else {
                     // No animation before Lollipop
-                    kissBar.setVisibility(View.VISIBLE);
+                    if (numberOfFavorites == 6) {
+                        kissBar_6icons.setVisibility(View.VISIBLE);
+                    } else {
+                        kissBar.setVisibility(View.VISIBLE);
+                    }
                 }
             }
 
@@ -722,12 +746,14 @@ public class MainActivity extends ListActivity implements QueryInterface {
                             @Override
                             public void run() {
                                 kissBar.setVisibility(View.GONE);
+                                kissBar_6icons.setVisibility(View.GONE);
                             }
                         }, duration);
                     }
                 } else {
                     // No animation before Lollipop
                     kissBar.setVisibility(View.GONE);
+                    kissBar_6icons.setVisibility(View.GONE);
                 }
             }
 
