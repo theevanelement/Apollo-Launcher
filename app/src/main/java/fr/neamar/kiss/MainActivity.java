@@ -568,7 +568,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
         launcherButton.getLocationInWindow(location);
         int cx = location[0];
         int cy = location[1];
-        int duration = 1000; //Normally 300. Can set to 1000 to show off animation more
+        int duration = 300; //Normally 300. Can set to 1000 to show off animation more
 
         // get the final radius for the clipping circle
 //        int finalRadius = Math.max(kissBar.getWidth(), kissBar.getHeight());
