@@ -65,16 +65,22 @@ public class MainActivity extends ListActivity implements QueryInterface {
     /**
      * IDS for the favorites buttons
      */
-    private final int[] favsIds = new int[]{R.id.favorite0, R.id.favorite1, R.id.favorite2, R.id.favorite3, R.id.favorite4};
-    private final int[] favsCircleIds = new int[]{R.id.favcircle0, R.id.favcircle1, R.id.favcircle2, R.id.favcircle3, R.id.favcircle4};
-    private final int[] favsLayoutIds = new int[]{R.id.fav_layout_0, R.id.fav_layout_1, R.id.fav_layout_2, R.id.fav_layout_3, R.id.fav_layout_4};
+    private final int[] favsIds = new int[]{R.id.favorite0, R.id.favorite1, R.id.favorite2, R.id.favorite3, R.id.favorite4,
+            R.id.favorite_6icons_0, R.id.favorite_6icons_1, R.id.favorite_6icons_2,
+            R.id.favorite_6icons_3, R.id.favorite_6icons_4, R.id.favorite_6icons_5};
+    private final int[] favsCircleIds = new int[]{R.id.favcircle0, R.id.favcircle1, R.id.favcircle2, R.id.favcircle3,
+            R.id.favcircle4, R.id.favcircle_6icons_0, R.id.favcircle_6icons_1, R.id.favcircle_6icons_2,
+            R.id.favcircle_6icons_3, R.id.favcircle_6icons_4, R.id.favcircle_6icons_5};
+    private final int[] favsLayoutIds = new int[]{R.id.fav_layout_0, R.id.fav_layout_1, R.id.fav_layout_2, R.id.fav_layout_3,
+            R.id.fav_layout_4, R.id.fav_layout_6icons_0, R.id.fav_layout_6icons_1, R.id.fav_layout_6icons_2,
+            R.id.fav_layout_6icons_3, R.id.fav_layout_6icons_4, R.id.fav_layout_6icons_5};
 
-    private final int[] favs_6icons_Ids = new int[]{R.id.favorite_6icons_0, R.id.favorite_6icons_1, R.id.favorite_6icons_2,
-    R.id.favorite_6icons_3, R.id.favorite_6icons_4, R.id.favorite_6icons_5};
-    private final int[] favsCircle_6icons_Ids = new int[] {R.id.favcircle_6icons_0, R.id.favcircle_6icons_1, R.id.favcircle_6icons_2,
-    R.id.favcircle_6icons_3, R.id.favcircle_6icons_4, R.id.favcircle_6icons_5};
-    private final int[] favsLayout_6icons_Ids = new int[] {R.id.fav_layout_6icons_0, R.id.fav_layout_6icons_1, R.id.fav_layout_6icons_2,
-    R.id.fav_layout_6icons_3, R.id.fav_layout_6icons_4, R.id.fav_layout_6icons_5};
+//    private final int[] favs_6icons_Ids = new int[]{R.id.favorite_6icons_0, R.id.favorite_6icons_1, R.id.favorite_6icons_2,
+//    R.id.favorite_6icons_3, R.id.favorite_6icons_4, R.id.favorite_6icons_5};
+//    private final int[] favsCircle_6icons_Ids = new int[] {R.id.favcircle_6icons_0, R.id.favcircle_6icons_1, R.id.favcircle_6icons_2,
+//    R.id.favcircle_6icons_3, R.id.favcircle_6icons_4, R.id.favcircle_6icons_5};
+//    private final int[] favsLayout_6icons_Ids = new int[] {R.id.fav_layout_6icons_0, R.id.fav_layout_6icons_1, R.id.fav_layout_6icons_2,
+//    R.id.fav_layout_6icons_3, R.id.fav_layout_6icons_4, R.id.fav_layout_6icons_5};
 
     /**
      * Number of favorites to retrieve.
@@ -280,6 +286,8 @@ public class MainActivity extends ListActivity implements QueryInterface {
                 R.id.favorite2,
                 R.id.favorite3,
                 R.id.favorite4,
+                R.id.favorite_6icons_0, R.id.favorite_6icons_1, R.id.favorite_6icons_2,
+                R.id.favorite_6icons_3, R.id.favorite_6icons_4, R.id.favorite_6icons_5,
         };
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -669,8 +677,8 @@ public class MainActivity extends ListActivity implements QueryInterface {
                     for (int i = 0; i < favoritesPojo.size(); i++) {
                         FrameLayout layout;
 
-                        if (numberOfFavorites == 6) {
-                            layout = (FrameLayout) findViewById(favsLayout_6icons_Ids[i]);
+                        if (numberOfFavorites >= 6) {
+                            layout = (FrameLayout) findViewById(favsLayoutIds[i + 5]);
                         } else {
                             layout = (FrameLayout) findViewById(favsLayoutIds[i]);
                         }
