@@ -28,11 +28,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.RotateAnimation;
+import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
@@ -58,7 +65,9 @@ public class MainActivity extends ListActivity implements QueryInterface {
     /**
      * IDS for the favorites buttons
      */
-    private final int[] favsIds = new int[]{R.id.favorite0, R.id.favorite1, R.id.favorite2, R.id.favorite3};
+    private final int[] favsIds = new int[]{R.id.favorite0, R.id.favorite1, R.id.favorite2, R.id.favorite3, R.id.favorite4};
+    private final int[] favsCircleIds = new int[]{R.id.favcircle0, R.id.favcircle1, R.id.favcircle2, R.id.favcircle3, R.id.favcircle4};
+    private final int[] favsLayoutIds = new int[]{R.id.fav_layout_0, R.id.fav_layout_1, R.id.fav_layout_2, R.id.fav_layout_3, R.id.fav_layout_4};
 
     /**
      * Number of favorites to retrieve.
@@ -101,6 +110,11 @@ public class MainActivity extends ListActivity implements QueryInterface {
      * Task launched on text change
      */
     private Searcher searcher;
+
+    private ListView resultsListView;
+
+    private LinearLayout main_empty_layout;
+    private boolean isEmptyMenuVisible = false;
 
     /**
      * Called when the activity is first created.
@@ -217,6 +231,10 @@ public class MainActivity extends ListActivity implements QueryInterface {
         menuButton = findViewById(R.id.menuButton);
         registerForContextMenu(menuButton);
 
+        resultsListView = getListView();
+//        resultsListView = (ListView) findViewById(R.id.list);
+        main_empty_layout = (LinearLayout) findViewById(R.id.main_empty);
+
         getListView().setLongClickable(true);
         getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
@@ -252,6 +270,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
                 R.id.favorite1,
                 R.id.favorite2,
                 R.id.favorite3,
+                R.id.favorite4,
         };
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -419,7 +438,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
     public void onMenuButtonClicked(View menuButton) {
         // When the kiss bar is displayed, the button can still be clicked in a few areas (due to favorite margin)
         // To fix this, we discard any click event occurring when the kissbar is displayed
-        if (kissBar.getVisibility() != View.VISIBLE)
+//        if (kissBar.getVisibility() != View.VISIBLE)
             menuButton.showContextMenu();
     }
 
@@ -437,7 +456,33 @@ public class MainActivity extends ListActivity implements QueryInterface {
     public void onLauncherButtonClicked(View launcherButton) {
         // Display or hide the kiss bar, according to current view tag (showMenu / hideMenu).
 
-        displayKissBar(launcherButton.getTag().equals("showMenu"));
+//        displayKissBar(launcherButton.getTag().equals("showMenu"));
+
+        boolean display;
+
+        if (resultsListView.getVisibility() == View.VISIBLE) {
+            display = false;
+        } else {
+            display = true;
+        }
+
+        displayKissBar(display);
+    }
+
+    public void onShowFavoritesButtonClicked(View launcherButton) {
+        // Display or hide the kiss bar, according to current view tag (showMenu / hideMenu).
+
+//        displayFavoritesBar(launcherButton.getTag().equals("showMenu"));
+
+        boolean display;
+
+        if (kissBar.getVisibility() == View.VISIBLE) {
+            display = false;
+        } else {
+            display = true;
+        }
+
+        displayFavoritesBar(display);
     }
 
     public void onFavoriteButtonClicked(View favorite) {
@@ -454,6 +499,12 @@ public class MainActivity extends ListActivity implements QueryInterface {
                 result.fastLaunch(MainActivity.this);
             }
         }, KissApplication.TOUCH_DELAY);
+
+        // Can take out if we want. This is just so that the next time you press the Home button,
+        // it goes to the main screen and doesn't still have the Favorites displayed. The only downside
+        // is that you see it go away before the app loads so it doesn't look the best, but it's just
+        // aesthetic
+        kissBar.setVisibility(View.GONE);
     }
 
     private void displayClearOnInput() {
@@ -508,14 +559,30 @@ public class MainActivity extends ListActivity implements QueryInterface {
         final ImageView launcherButton = (ImageView) findViewById(R.id.launcherButton);
 
         // get the center for the clipping circle
-        int cx = (launcherButton.getLeft() + launcherButton.getRight()) / 2;
-        int cy = (launcherButton.getTop() + launcherButton.getBottom()) / 2;
+//        int cx = (launcherButton.getLeft() + launcherButton.getRight()) / 2;
+//        int cy = resultsListView.getHeight() - (launcherButton.getTop() + launcherButton.getBottom()) / 2;
+//        int cx = (resultsListView.getLeft() + resultsListView.getRight()) / 2;
+//        int cy = (resultsListView.getTop() + resultsListView.getBottom()) / 2;
+
+        int location[] = {0, 0};
+        launcherButton.getLocationInWindow(location);
+        int cx = location[0];
+        int cy = location[1];
+        int duration = 300; //Normally 300. Can set to 1000 to show off animation more
 
         // get the final radius for the clipping circle
-        int finalRadius = Math.max(kissBar.getWidth(), kissBar.getHeight());
+//        int finalRadius = Math.max(kissBar.getWidth(), kissBar.getHeight());
+
+        // CH 3/7/16 - Multiplied this by 1.25 because it went a little away from the corner and then
+        // just instantly filled it without doing that corner in the animation because it was only doing it with the radius
+        // of the height of the screen. This was too short since it really needs to go from corner to corner.
+        int finalRadius = (int) Math.round(1.25 * (Math.max(resultsListView.getWidth(), resultsListView.getHeight())));
 
         if (display) {
             // Display the app list
+//            resultsListView.setAdapter(adapter);
+            kissBar.setVisibility(View.GONE);
+
             if (searcher != null) {
                 searcher.cancel(true);
             }
@@ -524,12 +591,99 @@ public class MainActivity extends ListActivity implements QueryInterface {
 
             // Reveal the bar
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                Animator anim = ViewAnimationUtils.createCircularReveal(kissBar, cx, cy, 0, finalRadius);
-                kissBar.setVisibility(View.VISIBLE);
+                Animator anim = ViewAnimationUtils.createCircularReveal(resultsListView, cx, cy, 0, finalRadius);
+                anim.setDuration(duration);
+                resultsListView.setVisibility(View.VISIBLE);
                 anim.start();
             } else {
                 // No animation before Lollipop
-                kissBar.setVisibility(View.VISIBLE);
+                resultsListView.setVisibility(View.VISIBLE);
+            }
+
+            // Retrieve favorites. Try to retrieve more, since some favorites can't be displayed (e.g. search queries)
+//            retrieveFavorites();
+
+            hideKeyboard();
+        } else {
+            // Hide the bar
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+                Animator anim = ViewAnimationUtils.createCircularReveal(resultsListView, cx, cy, finalRadius, 0);
+                anim.setDuration(duration);
+
+                anim.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        resultsListView.setVisibility(View.GONE);
+                        searchEditText.setText("");
+                    }
+                });
+                anim.start();
+
+            } else {
+                // No animation before Lollipop
+                resultsListView.setVisibility(View.GONE);
+                searchEditText.setText("");
+            }
+        }
+    }
+
+    private void displayFavoritesBar(Boolean display) {
+        final ImageView launcherButton = (ImageView) findViewById(R.id.launcherButton2);
+        ArrayList<Pojo> favoritesPojo = KissApplication.getDataHandler(MainActivity.this)
+                .getFavorites(tryToRetrieve);
+
+        int location[] = {0, 0};
+        launcherButton.getLocationInWindow(location);
+        int startX = location[0];
+        int startY = location[1];
+        int duration = 300; //Normally 300. Can set to 1000 to show off animation more
+
+        if (display) {
+
+            resultsListView.setVisibility(View.GONE);
+            searchEditText.setText("");
+
+            if (isEmptyMenuVisible) {
+                main_empty_layout.setVisibility(View.VISIBLE);
+            }
+
+//            kissBar.setVisibility(View.INVISIBLE);
+
+            if (favoritesPojo.size() > 0) {
+
+                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+                    for (int i = 0; i < favoritesPojo.size(); i++) {
+//                        if (i < 4) {
+                        FrameLayout layout = (FrameLayout) findViewById(favsLayoutIds[i]);
+
+                        int endLocation[] = {0, 0};
+                        layout.getLocationInWindow(endLocation);
+                        int endX = endLocation[0];
+                        int endY = endLocation[1];
+                        int deltaX = startX - endX;
+                        int deltaY = startY - endY;
+
+                        AnimationSet animation = new AnimationSet(true);
+                        RotateAnimation rotateAnimation = new RotateAnimation(-180, 0, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                        rotateAnimation.setDuration(duration);
+                        animation.addAnimation(rotateAnimation);
+
+                        TranslateAnimation transAnimation = new TranslateAnimation(Animation.ABSOLUTE, deltaX, Animation.ABSOLUTE,
+                                0, Animation.ABSOLUTE, deltaY, Animation.ABSOLUTE, 0);
+                        transAnimation.setDuration(duration);
+                        animation.addAnimation(transAnimation);
+
+//                        transAnimation.setStartOffset(0);
+                        kissBar.setVisibility(View.VISIBLE);
+                        layout.startAnimation(animation);
+                    }
+                } else {
+                    // No animation before Lollipop
+                    kissBar.setVisibility(View.VISIBLE);
+                }
             }
 
             // Retrieve favorites. Try to retrieve more, since some favorites can't be displayed (e.g. search queries)
@@ -537,21 +691,59 @@ public class MainActivity extends ListActivity implements QueryInterface {
 
             hideKeyboard();
         } else {
-            // Hide the bar
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                Animator anim = ViewAnimationUtils.createCircularReveal(kissBar, cx, cy, finalRadius, 0);
-                anim.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        kissBar.setVisibility(View.GONE);
-                        super.onAnimationEnd(animation);
+
+            if (favoritesPojo.size() > 0) {
+                // Hide the bar
+                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    for (int i = 0; i < favoritesPojo.size(); i++) {
+//                        if (i < 4) {
+                        FrameLayout layout = (FrameLayout) findViewById(favsLayoutIds[i]);
+
+                        int endLocation[] = {0, 0};
+                        layout.getLocationInWindow(endLocation);
+                        int endX = endLocation[0];
+                        int endY = endLocation[1];
+                        int deltaX = startX - endX;
+                        int deltaY = startY - endY;
+
+                        AnimationSet animation = new AnimationSet(true);
+                        RotateAnimation rotateAnimation = new RotateAnimation(0, -180, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                        rotateAnimation.setDuration(duration);
+                        animation.addAnimation(rotateAnimation);
+
+                        TranslateAnimation transAnimation = new TranslateAnimation(Animation.ABSOLUTE, 0, Animation.ABSOLUTE,
+                                deltaX, Animation.ABSOLUTE, 0, Animation.ABSOLUTE, deltaY);
+                        transAnimation.setDuration(duration);
+                        animation.addAnimation(transAnimation);
+//                        transAnimation.setStartOffset(0);
+//                        kissBar.setVisibility(View.GONE);
+                        layout.startAnimation(animation);
+                        layout.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                kissBar.setVisibility(View.GONE);
+                            }
+                        }, duration);
                     }
-                });
-                anim.start();
-            } else {
-                // No animation before Lollipop
-                kissBar.setVisibility(View.GONE);
+                } else {
+                    // No animation before Lollipop
+                    kissBar.setVisibility(View.GONE);
+                }
             }
+
+            if (isEmptyMenuVisible) {
+//                TranslateAnimation emptyMenuAnimation = new TranslateAnimation(0, 0, 0, 0);
+//                emptyMenuAnimation.setDuration(duration);
+//                main_empty_layout.startAnimation(emptyMenuAnimation);
+//                main_empty_layout.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        main_empty_layout.setVisibility(View.VISIBLE);
+//                    }
+//                }, duration);
+                main_empty_layout.setVisibility(View.VISIBLE);
+            }
+
             searchEditText.setText("");
         }
     }
@@ -559,28 +751,39 @@ public class MainActivity extends ListActivity implements QueryInterface {
     public void retrieveFavorites() {
         ArrayList<Pojo> favoritesPojo = KissApplication.getDataHandler(MainActivity.this)
                 .getFavorites(tryToRetrieve);
+        boolean isAtLeast1FavoriteApp = false;
 
         if (favoritesPojo.size() == 0) {
             Toast toast = Toast.makeText(MainActivity.this, getString(R.string.no_favorites), Toast.LENGTH_SHORT);
             toast.show();
+            isAtLeast1FavoriteApp = false;
+        } else if (favoritesPojo.size() > 0) {
+            isAtLeast1FavoriteApp = true;
+        }
+
+        if (isAtLeast1FavoriteApp && isEmptyMenuVisible) {
+            main_empty_layout.setVisibility(View.INVISIBLE);
         }
 
         // Don't look for items after favIds length, we won't be able to display them
         for (int i = 0; i < Math.min(favsIds.length, favoritesPojo.size()); i++) {
             Pojo pojo = favoritesPojo.get(i);
             ImageView image = (ImageView) findViewById(favsIds[i]);
+            ImageView circle = (ImageView) findViewById(favsCircleIds[i]);
 
             Result result = Result.fromPojo(MainActivity.this, pojo);
             Drawable drawable = result.getDrawable(MainActivity.this);
             if (drawable != null)
                 image.setImageDrawable(drawable);
             image.setVisibility(View.VISIBLE);
+            circle.setVisibility(View.VISIBLE);
             image.setContentDescription(pojo.displayName);
         }
 
         // Hide empty favorites (not enough favorites yet)
         for (int i = favoritesPojo.size(); i < favsIds.length; i++) {
             findViewById(favsIds[i]).setVisibility(View.GONE);
+            findViewById(favsCircleIds[i]).setVisibility(View.GONE);
         }
     }
 
@@ -601,11 +804,13 @@ public class MainActivity extends ListActivity implements QueryInterface {
                 searcher = new NullSearcher(this);
                 //Hide default scrollview
                 findViewById(R.id.main_empty).setVisibility(View.INVISIBLE);
+                isEmptyMenuVisible = false;
 
             } else {
                 searcher = new HistorySearcher(this);
                 //Show default scrollview
                 findViewById(R.id.main_empty).setVisibility(View.VISIBLE);
+                isEmptyMenuVisible = true;
             }
         } else {
             searcher = new QuerySearcher(this, query);
