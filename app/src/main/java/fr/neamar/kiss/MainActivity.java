@@ -527,22 +527,13 @@ public class MainActivity extends ListActivity implements QueryInterface {
         int startX = cx + centerX;
         int startY = cy;
 
-//        int startX = cx + favoriteLayout.getWidth();
-//        int startY = cy + favoriteLayout.getHeight();
-
-//        int centerX = Math.round(favoriteLayout.getX() + favoriteLayout.getWidth() / 2);
-//        int centerY = Math.round(favoriteLayout.getY() + favoriteLayout.getHeight() / 2);
-
-//        int startX = favoriteLayout.getLeft() + (favoriteLayout.getWidth() / 2);
-//        int startY = height - (favoriteLayout.getBottom() + (favoriteLayout.getHeight() / 2));
-//        int startX = cx + centerX;
-//        int startY = cy + centerY;
-
         int duration = 300; //Normally 300. Can set to 1000 to show off animation more
 
         int finalRadius = (int) Math.hypot(Math.abs(width - startX), Math.abs(height - startY));
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            final float favoriteElevation = favoriteLayout.getElevation();
+//            favoriteLayout.setElevation(100);
             Animator anim = ViewAnimationUtils.createCircularReveal(favoritesIconExpandingView, startX, startY, layoutRadius, finalRadius);
             anim.setDuration(duration);
 
@@ -551,6 +542,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
                 public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);
                     kissBar.setVisibility(View.GONE);
+//                    favoriteLayout.setElevation(favoriteElevation);
 //                    searchEditText.setText("");
                 }
             });
@@ -568,12 +560,6 @@ public class MainActivity extends ListActivity implements QueryInterface {
                 result.fastLaunch(MainActivity.this);
             }
         }, KissApplication.TOUCH_DELAY);
-
-        // Can take out if we want. This is just so that the next time you press the Home button,
-        // it goes to the main screen and doesn't still have the Favorites displayed. The only downside
-        // is that you see it go away before the app loads so it doesn't look the best, but it's just
-        // aesthetic
-//        kissBar.setVisibility(View.GONE);
     }
 
     private void displayClearOnInput() {
