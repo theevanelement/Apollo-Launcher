@@ -527,9 +527,9 @@ public class MainActivity extends ListActivity implements QueryInterface {
         int startX = cx + centerX;
         int startY = cy;
 
-        int duration = 300; //Normally 300. Can set to 1000 to show off animation more
+        int duration = 250; //Normally 300. Can set to 1000 to show off animation more
 
-        int finalRadius = (int) Math.hypot(Math.abs(width - startX), Math.abs(height - startY));
+        int finalRadius = (int) Math.hypot(Math.abs(width), Math.abs(height));
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            final float favoriteElevation = favoriteLayout.getElevation();
