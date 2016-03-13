@@ -356,7 +356,19 @@ public class MainActivity extends ListActivity implements QueryInterface {
             hideKeyboard();
         }
 
+        if (favoritesIconExpandingView.getVisibility() == View.VISIBLE) {
+            favoritesIconExpandingView.setVisibility(View.GONE);
+        }
+
         super.onResume();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (favoritesIconExpandingView.getVisibility() == View.VISIBLE) {
+            favoritesIconExpandingView.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -498,21 +510,40 @@ public class MainActivity extends ListActivity implements QueryInterface {
         ImageView selectedFavorite = (ImageView) findViewById(favorite.getId());
         FrameLayout favoriteLayout = (FrameLayout) favorite.getParent();
 
+        int width = getApplicationContext().getResources().getDisplayMetrics().widthPixels;
+        int height = getApplicationContext().getResources().getDisplayMetrics().heightPixels;
+
         int location[] = {0, 0};
         favoriteLayout.getLocationInWindow(location);
         int cx = location[0];
         int cy = location[1];
-        int duration = 1000; //Normally 300. Can set to 1000 to show off animation more
 
-//        int width = getApplicationContext().getResources().getDisplayMetrics().widthPixels;
-//        int height = getApplicationContext().getResources().getDisplayMetrics().heightPixels;
-        int width = 5000;
-        int height = 5000;
-//        int finalRadius = (int) Math.round(1.25 * (Math.max(Window.getWidth(), resultsListView.getHeight())));
-        int finalRadius = (int) Math.hypot(width - cx, height - cy);
+//        int layoutRadius = Math.min(favoriteLayout.getWidth(), favoriteLayout.getHeight()) / 2;
+        ImageView circle = (ImageView) findViewById(R.id.favcircle0);
+        int layoutRadius = Math.min(circle.getWidth(), circle.getHeight()) / 2;
+        int centerX = favoriteLayout.getWidth() / 2;
+        int centerY = favoriteLayout.getHeight() / 2;
+
+        int startX = cx + centerX;
+        int startY = cy;
+
+//        int startX = cx + favoriteLayout.getWidth();
+//        int startY = cy + favoriteLayout.getHeight();
+
+//        int centerX = Math.round(favoriteLayout.getX() + favoriteLayout.getWidth() / 2);
+//        int centerY = Math.round(favoriteLayout.getY() + favoriteLayout.getHeight() / 2);
+
+//        int startX = favoriteLayout.getLeft() + (favoriteLayout.getWidth() / 2);
+//        int startY = height - (favoriteLayout.getBottom() + (favoriteLayout.getHeight() / 2));
+//        int startX = cx + centerX;
+//        int startY = cy + centerY;
+
+        int duration = 300; //Normally 300. Can set to 1000 to show off animation more
+
+        int finalRadius = (int) Math.hypot(Math.abs(width - startX), Math.abs(height - startY));
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Animator anim = ViewAnimationUtils.createCircularReveal(favoritesIconExpandingView, cx, cy, 0, finalRadius);
+            Animator anim = ViewAnimationUtils.createCircularReveal(favoritesIconExpandingView, startX, startY, layoutRadius, finalRadius);
             anim.setDuration(duration);
 
             anim.addListener(new AnimatorListenerAdapter() {
@@ -521,7 +552,6 @@ public class MainActivity extends ListActivity implements QueryInterface {
                     super.onAnimationEnd(animation);
                     kissBar.setVisibility(View.GONE);
 //                    searchEditText.setText("");
-                    favoritesIconExpandingView.setVisibility(View.GONE);
                 }
             });
             favoritesIconExpandingView.setVisibility(View.VISIBLE);
