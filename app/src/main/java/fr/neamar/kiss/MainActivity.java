@@ -116,6 +116,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
 
     private LinearLayout main_empty_layout;
     private boolean isEmptyMenuVisible = false;
+    private View favoritesIconExpandingView;
 
     /**
      * Called when the activity is first created.
@@ -231,6 +232,8 @@ public class MainActivity extends ListActivity implements QueryInterface {
         kissBar = findViewById(R.id.main_kissbar);
         menuButton = findViewById(R.id.menuButton);
         registerForContextMenu(menuButton);
+
+        favoritesIconExpandingView = findViewById(R.id.favorites_icon_expand);
 
         resultsListView = getListView();
 //        resultsListView = (ListView) findViewById(R.id.list);
@@ -493,7 +496,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
                 .get(Integer.parseInt((String) favorite.getTag()));
         final Result result = Result.fromPojo(MainActivity.this, pojo);
         ImageView selectedFavorite = (ImageView) findViewById(favorite.getId());
-        final FrameLayout favoriteLayout = (FrameLayout) favorite.getParent();
+        FrameLayout favoriteLayout = (FrameLayout) favorite.getParent();
 
         int location[] = {0, 0};
         favoriteLayout.getLocationInWindow(location);
@@ -509,17 +512,19 @@ public class MainActivity extends ListActivity implements QueryInterface {
         int finalRadius = (int) Math.hypot(width - cx, height - cy);
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Animator anim = ViewAnimationUtils.createCircularReveal(favoriteLayout, cx, cy, 0, finalRadius);
+            Animator anim = ViewAnimationUtils.createCircularReveal(favoritesIconExpandingView, cx, cy, 0, finalRadius);
             anim.setDuration(duration);
 
             anim.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);
-//                    kissBar.setVisibility(View.GONE);
+                    kissBar.setVisibility(View.GONE);
 //                    searchEditText.setText("");
+                    favoritesIconExpandingView.setVisibility(View.GONE);
                 }
             });
+            favoritesIconExpandingView.setVisibility(View.VISIBLE);
             anim.start();
         } else {
             // No animation before Lollipop

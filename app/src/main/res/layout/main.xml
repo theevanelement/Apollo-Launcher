@@ -8,6 +8,13 @@
     android:clipToPadding="false"
     android:orientation="vertical">
 
+    <View android:id="@+id/favorites_icon_expand"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/greycircle_grey"
+        android:visibility="invisible"
+        android:elevation="5dp"/>
+
     <AnalogClock
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
