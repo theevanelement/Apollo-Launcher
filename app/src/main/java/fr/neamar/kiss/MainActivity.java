@@ -693,6 +693,8 @@ public class MainActivity extends ListActivity implements QueryInterface {
         launcherButton.getLocationInWindow(location);
         int startX = location[0];
         int startY = location[1];
+        int cx = launcherButton.getWidth() / 2;
+        startX -= cx;
         int duration = 300; //Normally 300. Can set to 1000 to show off animation more
 
         if (display) {
