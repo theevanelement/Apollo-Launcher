@@ -74,7 +74,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
      * Number of favorites to retrieve.
      * We need to pad this number to account for removed items still in history
      */
-    private final int tryToRetrieve = favsIds.length + 2;
+    private int tryToRetrieve = favsIds.length + 2;
     /**
      * InputType with spellecheck and swiping
      */
