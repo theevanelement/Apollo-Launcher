@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/kiss_green"
-    android:clipChildren="false"
-    android:clipToPadding="false"
-    android:elevation="2dp">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/kiss_green"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:elevation="2dp">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/Layout0And5"
@@ -213,74 +213,74 @@
             android:orientation="horizontal">
 
 
-            <TextView
-                android:id="@+id/fillerText7"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="30"
-                android:visibility="visible" />
+                <TextView
+                    android:id="@+id/fillerText7"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="30"
+                    android:visibility="visible" />
 
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/fav_layout_2"
-                android:layout_weight="2" >
-
-                <ImageView
+                <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/favcircle2"
-                    android:layout_gravity="center"
-                    android:src="@drawable/greycircle"/>
+                    android:id="@+id/fav_layout_2"
+                    android:layout_weight="2" >
 
-                <ImageView
-                    android:id="@+id/favorite2"
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/favcircle2"
+                            android:layout_gravity="center"
+                            android:src="@drawable/greycircle"/>
+
+                        <ImageView
+                            android:id="@+id/favorite2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@null"
+                            android:onClick="onFavoriteButtonClicked"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_contact"
+                            android:tag="2"/>
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/fillerText8"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:visibility="visible" />
+
+                <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@null"
-                    android:onClick="onFavoriteButtonClicked"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_contact"
-                    android:tag="2"/>
-            </FrameLayout>
+                    android:id="@+id/fav_layout_3"
+                    android:layout_weight="2" >
 
-            <TextView
-                android:id="@+id/fillerText8"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0"
-                android:visibility="visible" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/favcircle3"
+                        android:layout_gravity="center"
+                        android:src="@drawable/greycircle"/>
 
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/fav_layout_3"
-                android:layout_weight="2" >
+                    <ImageView
+                        android:id="@+id/favorite3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@null"
+                        android:onClick="onFavoriteButtonClicked"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_contact"
+                        android:tag="3"/>
+                </FrameLayout>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/favcircle3"
-                    android:layout_gravity="center"
-                    android:src="@drawable/greycircle"/>
-
-                <ImageView
-                    android:id="@+id/favorite3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@null"
-                    android:onClick="onFavoriteButtonClicked"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_contact"
-                    android:tag="3"/>
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/fillerText9"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="30"
-                android:visibility="visible" />
+                <TextView
+                    android:id="@+id/fillerText9"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="30"
+                    android:visibility="visible" />
 
         </LinearLayout>
     </RelativeLayout>
