@@ -59,12 +59,12 @@
             android:summary="@string/spellcheck_desc"
             android:title="@string/spellcheck_name" />
         <CheckBoxPreference
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:key="history-hide"
             android:summary="@string/history_hide_desc"
             android:title="@string/history_hide_name" />
         <CheckBoxPreference
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:key="history-onclick"
             android:dependency="history-hide"
             android:summary="@string/history_onclick_desc"
