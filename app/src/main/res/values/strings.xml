@@ -137,4 +137,7 @@
     <string name="enable_app">Populate history from app install</string>
     <string name="ui_empty_3_sub1">Apollo Launcher adapts to your habits</string>
 
+    <string name="use_digital_clock">Use Digital Clock</string>
+    <string name="use_analog_clock">Use Analog Clock</string>
+
 </resources>

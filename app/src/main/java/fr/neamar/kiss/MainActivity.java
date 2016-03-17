@@ -35,6 +35,8 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.AnalogClock;
+import android.widget.DigitalClock;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -117,6 +119,11 @@ public class MainActivity extends ListActivity implements QueryInterface {
     private LinearLayout main_empty_layout;
     private boolean isEmptyMenuVisible = false;
     private View favoritesIconExpandingView;
+
+    private RelativeLayout clockLayout;
+    private AnalogClock analogClock;
+    private DigitalClock digitalClock;
+
 
     /**
      * Called when the activity is first created.
@@ -229,6 +236,11 @@ public class MainActivity extends ListActivity implements QueryInterface {
             }
         });
 
+        clockLayout = (RelativeLayout) findViewById(R.id.clock_layout);
+        registerForContextMenu(clockLayout);
+        analogClock = (AnalogClock) findViewById(R.id.analogClock);
+        digitalClock = (DigitalClock) findViewById(R.id.digitalClock);
+
         kissBar = findViewById(R.id.main_kissbar);
         menuButton = findViewById(R.id.menuButton);
         registerForContextMenu(menuButton);
@@ -306,7 +318,11 @@ public class MainActivity extends ListActivity implements QueryInterface {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_settings, menu);
+        if (v.getId() == R.id.clock_layout) {
+            inflater.inflate(R.menu.menu_clock, menu);
+        } else {
+            inflater.inflate(R.menu.menu_settings, menu);
+        }
     }
 
     @Override
@@ -432,6 +448,14 @@ public class MainActivity extends ListActivity implements QueryInterface {
                 return true;
             case R.id.preferences:
                 startActivity(new Intent(this, SettingsActivity.class));
+                return true;
+            case R.id.use_analog_clock:
+                analogClock.setVisibility(View.VISIBLE);
+                digitalClock.setVisibility(View.INVISIBLE);
+                return true;
+            case R.id.use_digital_clock:
+                digitalClock.setVisibility(View.VISIBLE);
+                analogClock.setVisibility(View.INVISIBLE);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
