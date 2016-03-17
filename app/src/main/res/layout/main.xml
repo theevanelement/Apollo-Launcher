@@ -15,12 +15,28 @@
         android:visibility="invisible"
         android:elevation="5dp"/>
 
-    <AnalogClock
+    <RelativeLayout
+        android:id="@+id/clock_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/analogClock"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true" >
+
+        <AnalogClock
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:id="@+id/analogClock" />
+        <DigitalClock
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/digitalClock"
+            android:layout_centerInParent="true"
+            android:textSize="60sp"
+            android:fontFamily="sans-serif-light"
+            android:visibility="invisible" />
+
+    </RelativeLayout>
 
         <ListView
             android:id="@android:id/list"
@@ -37,7 +53,7 @@
             android:dividerHeight="1dp"
             android:elevation="2dp"
             android:stackFromBottom="true"
-            android:transcriptMode="alwaysScroll" >
+            android:transcriptMode="alwaysScroll">
         </ListView>
 
 
