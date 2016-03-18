@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fav_layout_0"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/favcircle0"
+                android:layout_gravity="center"
+                android:src="@drawable/greycircle"/>
+
+            <ImageView
+                android:id="@+id/favorite0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:onClick="onFavoriteButtonClicked"
+                android:src="@drawable/ic_contact"
+                android:tag="0"
+                />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fav_layout_1"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/favcircle1"
+                android:layout_gravity="center"
+                android:src="@drawable/greycircle"/>
+
+            <ImageView
+                android:id="@+id/favorite1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:onClick="onFavoriteButtonClicked"
+                android:src="@drawable/ic_contact"
+                android:tag="1"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fav_layout_2"
+            android:layout_weight="1" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/favcircle2"
+                android:layout_gravity="center"
+                android:src="@drawable/greycircle"/>
+
+            <ImageView
+                android:id="@+id/favorite2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:onClick="onFavoriteButtonClicked"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_contact"
+                android:tag="2"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fav_layout_3"
+            android:layout_weight="1" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/favcircle3"
+                android:layout_gravity="center"
+                android:src="@drawable/greycircle"/>
+
+            <ImageView
+                android:id="@+id/favorite3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:onClick="onFavoriteButtonClicked"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_contact"
+                android:tag="3"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fav_layout_4"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/favcircle4"
+                android:layout_gravity="center"
+                android:src="@drawable/greycircle"/>
+
+            <ImageView
+                android:id="@+id/favorite4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:onClick="onFavoriteButtonClicked"
+                android:src="@drawable/ic_contact"
+                android:tag="4"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fav_layout_5"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/favcircle5"
+                android:layout_gravity="center"
+                android:src="@drawable/greycircle"/>
+
+            <ImageView
+                android:id="@+id/favorite5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:onClick="onFavoriteButtonClicked"
+                android:src="@drawable/ic_contact"
+                android:tag="5"/>
+        </FrameLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

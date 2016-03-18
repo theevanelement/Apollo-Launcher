@@ -124,6 +124,8 @@ public class MainActivity extends ListActivity implements QueryInterface {
     private AnalogClock analogClock;
     private DigitalClock digitalClock;
 
+    private RelativeLayout rightFavoritesMenu;
+
 
     /**
      * Called when the activity is first created.
@@ -241,6 +243,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
         analogClock = (AnalogClock) findViewById(R.id.analogClock);
         digitalClock = (DigitalClock) findViewById(R.id.digitalClock);
 
+        rightFavoritesMenu = (RelativeLayout) findViewById(R.id.main_right_favorites);
         kissBar = findViewById(R.id.main_kissbar);
         menuButton = findViewById(R.id.menuButton);
         registerForContextMenu(menuButton);
@@ -761,10 +764,16 @@ public class MainActivity extends ListActivity implements QueryInterface {
 //                        transAnimation.setStartOffset(0);
                         kissBar.setVisibility(View.VISIBLE);
                         layout.startAnimation(animation);
+
+                        // ADDED FOR RIGHT FAVORITES MENU
+                        rightFavoritesMenu.setVisibility(View.VISIBLE);
                     }
                 } else {
                     // No animation before Lollipop
                     kissBar.setVisibility(View.VISIBLE);
+
+                    // ADDED FOR RIGHT FAVORITES MENU
+                    rightFavoritesMenu.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -807,9 +816,15 @@ public class MainActivity extends ListActivity implements QueryInterface {
                             }
                         }, duration);
                     }
+
+                    // ADDED FOR RIGHT FAVORITES MENU
+                    rightFavoritesMenu.setVisibility(View.GONE);
                 } else {
                     // No animation before Lollipop
                     kissBar.setVisibility(View.GONE);
+
+                    // ADDED FOR RIGHT FAVORITES MENU
+                    rightFavoritesMenu.setVisibility(View.GONE);
                 }
             }
 
