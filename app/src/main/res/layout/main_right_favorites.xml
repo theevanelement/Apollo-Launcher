@@ -14,18 +14,18 @@
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/fav_layout_0"
+            android:id="@+id/fav_layout_right_0"
             android:layout_weight="1">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/favcircle0"
+                android:id="@+id/favcircle_right0"
                 android:layout_gravity="center"
                 android:src="@drawable/greycircle"/>
 
             <ImageView
-                android:id="@+id/favorite0"
+                android:id="@+id/favorite_right0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -40,18 +40,18 @@
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/fav_layout_1"
+            android:id="@+id/fav_layout_right_1"
             android:layout_weight="1">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/favcircle1"
+                android:id="@+id/favcircle_right1"
                 android:layout_gravity="center"
                 android:src="@drawable/greycircle"/>
 
             <ImageView
-                android:id="@+id/favorite1"
+                android:id="@+id/favorite_right1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -64,18 +64,18 @@
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/fav_layout_2"
+            android:id="@+id/fav_layout_right_2"
             android:layout_weight="1" >
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/favcircle2"
+                android:id="@+id/favcircle_right2"
                 android:layout_gravity="center"
                 android:src="@drawable/greycircle"/>
 
             <ImageView
-                android:id="@+id/favorite2"
+                android:id="@+id/favorite_right2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@null"
@@ -88,18 +88,18 @@
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/fav_layout_3"
+            android:id="@+id/fav_layout_right_3"
             android:layout_weight="1" >
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/favcircle3"
+                android:id="@+id/favcircle_right3"
                 android:layout_gravity="center"
                 android:src="@drawable/greycircle"/>
 
             <ImageView
-                android:id="@+id/favorite3"
+                android:id="@+id/favorite_right3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@null"
@@ -112,18 +112,18 @@
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/fav_layout_4"
+            android:id="@+id/fav_layout_right_4"
             android:layout_weight="1">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/favcircle4"
+                android:id="@+id/favcircle_right4"
                 android:layout_gravity="center"
                 android:src="@drawable/greycircle"/>
 
             <ImageView
-                android:id="@+id/favorite4"
+                android:id="@+id/favorite_right4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -136,18 +136,18 @@
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/fav_layout_5"
+            android:id="@+id/fav_layout_right_5"
             android:layout_weight="1">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/favcircle5"
+                android:id="@+id/favcircle_right5"
                 android:layout_gravity="center"
                 android:src="@drawable/greycircle"/>
 
             <ImageView
-                android:id="@+id/favorite5"
+                android:id="@+id/favorite_right5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

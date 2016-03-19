@@ -200,6 +200,6 @@
         android:layout_margin="10dp"
         android:clipChildren="false"
         android:clipToPadding="false"
-        android:visibility="visible"/>
+        android:visibility="invisible"/>
 
 </RelativeLayout>
