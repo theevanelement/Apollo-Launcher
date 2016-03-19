@@ -908,10 +908,10 @@ public class MainActivity extends ListActivity implements QueryInterface {
 
         // Hide empty favorites (not enough favorites yet)
         for (int i = favoritesPojo.size(); i < favsIds.length; i++) {
-            findViewById(favsIds[i]).setVisibility(View.GONE);
-            findViewById(favsRightIds[i]).setVisibility(View.GONE);
-            findViewById(favsCircleIds[i]).setVisibility(View.GONE);
-            findViewById(favsCircleRightIds[i]).setVisibility(View.GONE);
+//            findViewById(favsIds[i]).setVisibility(View.GONE);
+//            findViewById(favsRightIds[i]).setVisibility(View.GONE);
+//            findViewById(favsCircleIds[i]).setVisibility(View.GONE);
+//            findViewById(favsCircleRightIds[i]).setVisibility(View.GONE);
         }
     }
 
