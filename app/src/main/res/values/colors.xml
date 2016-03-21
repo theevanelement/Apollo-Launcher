@@ -3,6 +3,7 @@
     <color name="kiss_green">#00000000</color>
     <color name="kiss_green_dark">#388E3C</color>
     <color name="kiss_text_dark">#ffffff</color>
+    <color name="kiss_text_secondary">#dbdbdb</color>
     <color name="kiss_background">#eaeaea</color>
     <color name="kiss_divider_light">#e0e0e0</color>
     <color name="kiss_list_background_inverse">#303030</color>
@@ -12,4 +13,6 @@
     <color name="kiss_green_semitransparent">#884caf50</color>
     <color name="transparent">#00000000</color>
     <color name="greycircle_grey">#C9C9C9</color>
+    <color name="updated_transparent_background">#500b0a0a</color>
+    <color name="edittext_transparent_background">#000b0a0a</color>
 </resources>

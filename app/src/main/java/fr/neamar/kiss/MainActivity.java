@@ -12,7 +12,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -73,13 +72,6 @@ public class MainActivity extends ListActivity implements QueryInterface {
     private final int[] favsCircleIds = new int[]{R.id.favcircle0, R.id.favcircle1, R.id.favcircle2, R.id.favcircle3, R.id.favcircle4, R.id.favcircle5};
     private final int[] favsLayoutIds = new int[]{R.id.fav_layout_0, R.id.fav_layout_1, R.id.fav_layout_2, R.id.fav_layout_3, R.id.fav_layout_4, R.id.fav_layout_5};
 
-    private final int[] favsRightIds = new int[]{R.id.favorite_right0, R.id.favorite_right1, R.id.favorite_right2, R.id.favorite_right2,
-    R.id.favorite_right3, R.id.favorite_right4, R.id.favorite_right5};
-    private final int[] favsCircleRightIds = new int[]{R.id.favcircle_right0, R.id.favcircle_right1, R.id.favcircle_right2, R.id.favcircle_right3,
-    R.id.favcircle_right4, R.id.favcircle_right5};
-    private final int[] favsLayoutRightIds = new int[]{R.id.fav_layout_right_0, R.id.fav_layout_right_1, R.id.fav_layout_right_2,
-    R.id.fav_layout_right_3, R.id.fav_layout_right_4, R.id.fav_layout_right_5};
-
     /**
      * Number of favorites to retrieve.
      * We need to pad this number to account for removed items still in history
@@ -133,7 +125,6 @@ public class MainActivity extends ListActivity implements QueryInterface {
     private DigitalClock digitalClock;
     private String whichClockIsVisible;
 
-    private RelativeLayout rightFavoritesMenu;
 
 
     /**
@@ -252,7 +243,6 @@ public class MainActivity extends ListActivity implements QueryInterface {
         analogClock = (AnalogClock) findViewById(R.id.analogClock);
         digitalClock = (DigitalClock) findViewById(R.id.digitalClock);
 
-        rightFavoritesMenu = (RelativeLayout) findViewById(R.id.main_right_favorites);
         kissBar = findViewById(R.id.main_kissbar);
         menuButton = findViewById(R.id.menuButton);
         registerForContextMenu(menuButton);
@@ -399,9 +389,9 @@ public class MainActivity extends ListActivity implements QueryInterface {
             favoritesIconExpandingView.setVisibility(View.GONE);
         }
 
-        if (whichClockIsVisible.equals("analog")) {
+        if (whichClockIsVisible != null && whichClockIsVisible.equals("analog")) {
             analogClock.setVisibility(View.VISIBLE);
-        } else if(whichClockIsVisible.equals("digital")) {
+        } else if(whichClockIsVisible != null && whichClockIsVisible.equals("digital")) {
             digitalClock.setVisibility(View.VISIBLE);
         }
     }
@@ -543,9 +533,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
 
         boolean display;
 
-        // *****DONE FOR TESTING RIGHT MENU, CHANGE****
-//        if (kissBar.getVisibility() == View.VISIBLE) {
-        if (rightFavoritesMenu.getVisibility() == View.VISIBLE) {
+        if (kissBar.getVisibility() == View.VISIBLE) {
             display = false;
         } else {
             display = true;
@@ -801,26 +789,11 @@ public class MainActivity extends ListActivity implements QueryInterface {
 
 //                        transAnimation.setStartOffset(0);
                         kissBar.setVisibility(View.VISIBLE);
-
-                        // ADDED FOR RIGHT FAVORITES MENU
-                        rightFavoritesMenu.setVisibility(View.VISIBLE);
-
                         layout.startAnimation(animation);
-
-//                        Toast toast = Toast.makeText(MainActivity.this, "Favorite ID Shown: " + favoritesPojo.get(i).id, Toast.LENGTH_SHORT);
-//                        toast.show();
-                        ImageView rightId = (ImageView) findViewById(favsRightIds[i]);
-                        if (rightId.getVisibility() == View.VISIBLE) {
-                            Toast toast = Toast.makeText(MainActivity.this, "Favorite Right ID Shown: " + rightId.getId(), Toast.LENGTH_SHORT);
-                            toast.show();
-                        }
                     }
                 } else {
                     // No animation before Lollipop
                     kissBar.setVisibility(View.VISIBLE);
-
-                    // ADDED FOR RIGHT FAVORITES MENU
-                    rightFavoritesMenu.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -854,10 +827,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
                         transAnimation.setDuration(duration);
                         animation.addAnimation(transAnimation);
 //                        transAnimation.setStartOffset(0);
-                        kissBar.setVisibility(View.GONE);
-
-                        // ADDED FOR RIGHT FAVORITES MENU
-                        rightFavoritesMenu.setVisibility(View.GONE);
+//                        kissBar.setVisibility(View.GONE);
 
                         layout.startAnimation(animation);
                         layout.postDelayed(new Runnable() {
@@ -872,9 +842,6 @@ public class MainActivity extends ListActivity implements QueryInterface {
                 } else {
                     // No animation before Lollipop
                     kissBar.setVisibility(View.GONE);
-
-                    // ADDED FOR RIGHT FAVORITES MENU
-                    rightFavoritesMenu.setVisibility(View.GONE);
                 }
             }
 
@@ -916,30 +883,22 @@ public class MainActivity extends ListActivity implements QueryInterface {
         for (int i = 0; i < Math.min(favsIds.length, favoritesPojo.size()); i++) {
             Pojo pojo = favoritesPojo.get(i);
             ImageView image = (ImageView) findViewById(favsIds[i]);
-            ImageView imageright = (ImageView) findViewById(favsRightIds[i]);
             ImageView circle = (ImageView) findViewById(favsCircleIds[i]);
-            ImageView circleright = (ImageView) findViewById(favsCircleRightIds[i]);
 
             Result result = Result.fromPojo(MainActivity.this, pojo);
             Drawable drawable = result.getDrawable(MainActivity.this);
             if (drawable != null) {
                 image.setImageDrawable(drawable);
-                imageright.setImageDrawable(drawable);
             }
             image.setVisibility(View.VISIBLE);
-            imageright.setVisibility(View.VISIBLE);
             circle.setVisibility(View.VISIBLE);
-            circleright.setVisibility(View.VISIBLE);
             image.setContentDescription(pojo.displayName);
-            imageright.setContentDescription(pojo.displayName);
         }
 
         // Hide empty favorites (not enough favorites yet)
         for (int i = favoritesPojo.size(); i < favsIds.length; i++) {
             findViewById(favsIds[i]).setVisibility(View.GONE);
-            findViewById(favsRightIds[i]).setVisibility(View.GONE);
             findViewById(favsCircleIds[i]).setVisibility(View.GONE);
-            findViewById(favsCircleRightIds[i]).setVisibility(View.GONE);
         }
     }
 

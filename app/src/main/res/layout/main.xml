@@ -47,7 +47,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="#500b0a0a"
+            android:background="@color/updated_transparent_background"
             android:cacheColorHint="@android:color/transparent"
             android:divider="?attr/dividerDrawable"
             android:dividerHeight="1dp"
@@ -64,7 +64,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_margin="10dp"
-        android:background="#500b0a0a"
+        android:background="@color/updated_transparent_background"
         android:clipToPadding="false"
         android:elevation="2dp"
         android:padding="4dp">
@@ -118,7 +118,7 @@
             android:layout_toLeftOf="@+id/clearButton"
             android:layout_toRightOf="@+id/launcherButton2"
             android:layout_toStartOf="@+id/clearButton"
-            android:background="#000b0a0a"
+            android:background="@color/edittext_transparent_background"
             android:hint="Search Apps, contacts"
             android:imeOptions="flagNoExtractUi|actionSearch"
             android:inputType="textVisiblePassword|textNoSuggestions"
@@ -188,18 +188,5 @@
         android:layout_centerHorizontal="true"
         android:layout_above="@id/searchEditLayout"
         android:layout_margin="10dp" />
-
-    <include
-        android:id="@+id/main_right_favorites"
-        layout="@layout/main_right_favorites"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_above="@id/searchEditLayout"
-        android:layout_margin="10dp"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:visibility="invisible"/>
 
 </RelativeLayout>
