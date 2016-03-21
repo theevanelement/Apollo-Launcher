@@ -208,6 +208,12 @@ public class MainActivity extends ListActivity implements QueryInterface {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 updateRecords(s.toString());
                 displayClearOnInput();
+
+                if (searchEditText.getText().toString().equals("")) {
+                    showClock();
+                } else {
+                    hideClock();
+                }
             }
         });
 
@@ -233,6 +239,14 @@ public class MainActivity extends ListActivity implements QueryInterface {
                     if (((EditText) v).getText().toString().isEmpty()) {
                         searcher = new HistorySearcher(MainActivity.this);
                         searcher.execute();
+
+                        if (analogClock.getVisibility() == View.VISIBLE) {
+                            whichClockIsVisible = "analog";
+                        } else if (digitalClock.getVisibility() == View.VISIBLE) {
+                            whichClockIsVisible = "digital";
+                        }
+
+                        hideClock();
                     }
                 }
             }
@@ -394,6 +408,8 @@ public class MainActivity extends ListActivity implements QueryInterface {
         } else if(whichClockIsVisible != null && whichClockIsVisible.equals("digital")) {
             digitalClock.setVisibility(View.VISIBLE);
         }
+
+        searchEditText.setText("");
     }
 
     @Override
@@ -499,6 +515,8 @@ public class MainActivity extends ListActivity implements QueryInterface {
     @SuppressWarnings("UnusedParameters")
     public void onClearButtonClicked(View clearButton) {
         searchEditText.setText("");
+
+        showClock();
     }
 
     /**
@@ -679,11 +697,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
 //            resultsListView.setAdapter(adapter);
             kissBar.setVisibility(View.GONE);
 
-            if (whichClockIsVisible.equals("analog")) {
-                analogClock.setVisibility(View.INVISIBLE);
-            } else {
-                digitalClock.setVisibility(View.INVISIBLE);
-            }
+            hideClock();
 
             if (searcher != null) {
                 searcher.cancel(true);
@@ -709,11 +723,6 @@ public class MainActivity extends ListActivity implements QueryInterface {
         } else {
 
             // Hide the bar
-            if (whichClockIsVisible.equals("analog")) {
-                analogClock.setVisibility(View.VISIBLE);
-            } else {
-                digitalClock.setVisibility(View.VISIBLE);
-            }
 
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
@@ -726,6 +735,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
                         super.onAnimationEnd(animation);
                         resultsListView.setVisibility(View.GONE);
                         searchEditText.setText("");
+                        showClock();
                     }
                 });
                 anim.start();
@@ -859,6 +869,22 @@ public class MainActivity extends ListActivity implements QueryInterface {
             }
 
             searchEditText.setText("");
+        }
+    }
+
+    private void hideClock() {
+        if (whichClockIsVisible.equals("analog")) {
+            analogClock.setVisibility(View.INVISIBLE);
+        } else {
+            digitalClock.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void showClock() {
+        if (whichClockIsVisible.equals("analog")) {
+            analogClock.setVisibility(View.VISIBLE);
+        } else {
+            digitalClock.setVisibility(View.VISIBLE);
         }
     }
 
