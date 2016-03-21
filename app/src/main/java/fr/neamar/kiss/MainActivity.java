@@ -123,6 +123,8 @@ public class MainActivity extends ListActivity implements QueryInterface {
     private RelativeLayout clockLayout;
     private AnalogClock analogClock;
     private DigitalClock digitalClock;
+    private String whichClockIsVisible;
+
 
 
     /**
@@ -206,6 +208,12 @@ public class MainActivity extends ListActivity implements QueryInterface {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 updateRecords(s.toString());
                 displayClearOnInput();
+
+                if (searchEditText.getText().toString().equals("")) {
+                    showClock();
+                } else {
+                    hideClock();
+                }
             }
         });
 
@@ -231,6 +239,14 @@ public class MainActivity extends ListActivity implements QueryInterface {
                     if (((EditText) v).getText().toString().isEmpty()) {
                         searcher = new HistorySearcher(MainActivity.this);
                         searcher.execute();
+
+                        if (analogClock.getVisibility() == View.VISIBLE) {
+                            whichClockIsVisible = "analog";
+                        } else if (digitalClock.getVisibility() == View.VISIBLE) {
+                            whichClockIsVisible = "digital";
+                        }
+
+                        hideClock();
                     }
                 }
             }
@@ -386,6 +402,14 @@ public class MainActivity extends ListActivity implements QueryInterface {
         if (favoritesIconExpandingView.getVisibility() == View.VISIBLE) {
             favoritesIconExpandingView.setVisibility(View.GONE);
         }
+
+        if (whichClockIsVisible != null && whichClockIsVisible.equals("analog")) {
+            analogClock.setVisibility(View.VISIBLE);
+        } else if(whichClockIsVisible != null && whichClockIsVisible.equals("digital")) {
+            digitalClock.setVisibility(View.VISIBLE);
+        }
+
+        searchEditText.setText("");
     }
 
     @Override
@@ -452,10 +476,12 @@ public class MainActivity extends ListActivity implements QueryInterface {
             case R.id.use_analog_clock:
                 analogClock.setVisibility(View.VISIBLE);
                 digitalClock.setVisibility(View.INVISIBLE);
+                whichClockIsVisible = "analog";
                 return true;
             case R.id.use_digital_clock:
                 digitalClock.setVisibility(View.VISIBLE);
                 analogClock.setVisibility(View.INVISIBLE);
+                whichClockIsVisible = "digital";
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -489,6 +515,8 @@ public class MainActivity extends ListActivity implements QueryInterface {
     @SuppressWarnings("UnusedParameters")
     public void onClearButtonClicked(View clearButton) {
         searchEditText.setText("");
+
+        showClock();
     }
 
     /**
@@ -498,6 +526,12 @@ public class MainActivity extends ListActivity implements QueryInterface {
         // Display or hide the kiss bar, according to current view tag (showMenu / hideMenu).
 
 //        displayKissBar(launcherButton.getTag().equals("showMenu"));
+
+        if (analogClock.getVisibility() == View.VISIBLE) {
+            whichClockIsVisible = "analog";
+        } else if (digitalClock.getVisibility() == View.VISIBLE) {
+            whichClockIsVisible = "digital";
+        }
 
         boolean display;
 
@@ -663,6 +697,8 @@ public class MainActivity extends ListActivity implements QueryInterface {
 //            resultsListView.setAdapter(adapter);
             kissBar.setVisibility(View.GONE);
 
+            hideClock();
+
             if (searcher != null) {
                 searcher.cancel(true);
             }
@@ -685,7 +721,9 @@ public class MainActivity extends ListActivity implements QueryInterface {
 
             hideKeyboard();
         } else {
+
             // Hide the bar
+
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
                 Animator anim = ViewAnimationUtils.createCircularReveal(resultsListView, cx, cy, finalRadius, 0);
@@ -697,6 +735,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
                         super.onAnimationEnd(animation);
                         resultsListView.setVisibility(View.GONE);
                         searchEditText.setText("");
+                        showClock();
                     }
                 });
                 anim.start();
@@ -799,6 +838,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
                         animation.addAnimation(transAnimation);
 //                        transAnimation.setStartOffset(0);
 //                        kissBar.setVisibility(View.GONE);
+
                         layout.startAnimation(animation);
                         layout.postDelayed(new Runnable() {
                             @Override
@@ -807,6 +847,8 @@ public class MainActivity extends ListActivity implements QueryInterface {
                             }
                         }, duration);
                     }
+
+
                 } else {
                     // No animation before Lollipop
                     kissBar.setVisibility(View.GONE);
@@ -827,6 +869,22 @@ public class MainActivity extends ListActivity implements QueryInterface {
             }
 
             searchEditText.setText("");
+        }
+    }
+
+    private void hideClock() {
+        if (whichClockIsVisible.equals("analog")) {
+            analogClock.setVisibility(View.INVISIBLE);
+        } else {
+            digitalClock.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void showClock() {
+        if (whichClockIsVisible.equals("analog")) {
+            analogClock.setVisibility(View.VISIBLE);
+        } else {
+            digitalClock.setVisibility(View.VISIBLE);
         }
     }
 
@@ -855,8 +913,9 @@ public class MainActivity extends ListActivity implements QueryInterface {
 
             Result result = Result.fromPojo(MainActivity.this, pojo);
             Drawable drawable = result.getDrawable(MainActivity.this);
-            if (drawable != null)
+            if (drawable != null) {
                 image.setImageDrawable(drawable);
+            }
             image.setVisibility(View.VISIBLE);
             circle.setVisibility(View.VISIBLE);
             image.setContentDescription(pojo.displayName);

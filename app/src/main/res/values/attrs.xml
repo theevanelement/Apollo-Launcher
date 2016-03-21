@@ -5,4 +5,5 @@
     <attr name="searchColor" format="reference|color"/>
     <attr name="searchBackgroundColor" format="reference|color"/>
     <attr name="dividerDrawable" format="reference"/>
+    <attr name="textColorSecondary" format="reference|color"/>
 </resources>
