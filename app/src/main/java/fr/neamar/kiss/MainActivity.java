@@ -719,7 +719,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
 
             hideKeyboard();
         } else {
-            
+
             // Hide the bar
             if (whichClockIsVisible.equals("analog")) {
                 analogClock.setVisibility(View.VISIBLE);
