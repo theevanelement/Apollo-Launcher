@@ -183,9 +183,11 @@
         android:clipChildren="false"
         android:clipToPadding="false"
         android:visibility="invisible"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/searchEditLayout"
+        android:layout_margin="10dp" />
 
     <include
         android:id="@+id/main_right_favorites"

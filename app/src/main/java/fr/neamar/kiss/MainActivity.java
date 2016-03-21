@@ -131,6 +131,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
     private RelativeLayout clockLayout;
     private AnalogClock analogClock;
     private DigitalClock digitalClock;
+    private String whichClockIsVisible;
 
     private RelativeLayout rightFavoritesMenu;
 
@@ -397,6 +398,12 @@ public class MainActivity extends ListActivity implements QueryInterface {
         if (favoritesIconExpandingView.getVisibility() == View.VISIBLE) {
             favoritesIconExpandingView.setVisibility(View.GONE);
         }
+
+        if (whichClockIsVisible.equals("analog")) {
+            analogClock.setVisibility(View.VISIBLE);
+        } else if(whichClockIsVisible.equals("digital")) {
+            digitalClock.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -463,10 +470,12 @@ public class MainActivity extends ListActivity implements QueryInterface {
             case R.id.use_analog_clock:
                 analogClock.setVisibility(View.VISIBLE);
                 digitalClock.setVisibility(View.INVISIBLE);
+                whichClockIsVisible = "analog";
                 return true;
             case R.id.use_digital_clock:
                 digitalClock.setVisibility(View.VISIBLE);
                 analogClock.setVisibility(View.INVISIBLE);
+                whichClockIsVisible = "digital";
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -509,6 +518,12 @@ public class MainActivity extends ListActivity implements QueryInterface {
         // Display or hide the kiss bar, according to current view tag (showMenu / hideMenu).
 
 //        displayKissBar(launcherButton.getTag().equals("showMenu"));
+
+        if (analogClock.getVisibility() == View.VISIBLE) {
+            whichClockIsVisible = "analog";
+        } else if (digitalClock.getVisibility() == View.VISIBLE) {
+            whichClockIsVisible = "digital";
+        }
 
         boolean display;
 
@@ -676,6 +691,12 @@ public class MainActivity extends ListActivity implements QueryInterface {
 //            resultsListView.setAdapter(adapter);
             kissBar.setVisibility(View.GONE);
 
+            if (whichClockIsVisible.equals("analog")) {
+                analogClock.setVisibility(View.INVISIBLE);
+            } else {
+                digitalClock.setVisibility(View.INVISIBLE);
+            }
+
             if (searcher != null) {
                 searcher.cancel(true);
             }
@@ -698,7 +719,14 @@ public class MainActivity extends ListActivity implements QueryInterface {
 
             hideKeyboard();
         } else {
+            
             // Hide the bar
+            if (whichClockIsVisible.equals("analog")) {
+                analogClock.setVisibility(View.VISIBLE);
+            } else {
+                digitalClock.setVisibility(View.VISIBLE);
+            }
+
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
                 Animator anim = ViewAnimationUtils.createCircularReveal(resultsListView, cx, cy, finalRadius, 0);
