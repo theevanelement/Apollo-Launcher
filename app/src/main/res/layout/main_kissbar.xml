@@ -224,14 +224,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/fav_layout_2"
-                    android:layout_weight="2" >
+                    android:layout_weight="2"
+                    android:clipChildren="false"
+                    android:clipToPadding="false" >
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/favcircle2"
                             android:layout_gravity="center"
-                            android:src="@drawable/greycircle"/>
+                            android:src="@drawable/greycircle"
+                            android:elevation="8dp"
+                            android:outlineProvider="bounds" />
 
                         <ImageView
                             android:id="@+id/favorite2"
@@ -241,7 +245,7 @@
                             android:onClick="onFavoriteButtonClicked"
                             android:layout_gravity="center"
                             android:src="@drawable/ic_contact"
-                            android:tag="2"/>
+                            android:tag="2" />
                 </FrameLayout>
 
                 <TextView

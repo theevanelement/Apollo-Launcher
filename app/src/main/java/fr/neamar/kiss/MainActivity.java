@@ -257,6 +257,12 @@ public class MainActivity extends ListActivity implements QueryInterface {
         analogClock = (AnalogClock) findViewById(R.id.analogClock);
         digitalClock = (DigitalClock) findViewById(R.id.digitalClock);
 
+        if (analogClock.getVisibility() == View.VISIBLE) {
+            whichClockIsVisible = "analog";
+        } else {
+            whichClockIsVisible = "digital";
+        }
+
         kissBar = findViewById(R.id.main_kissbar);
         menuButton = findViewById(R.id.menuButton);
         registerForContextMenu(menuButton);
