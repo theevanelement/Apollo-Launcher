@@ -15,5 +15,5 @@ We decided to use the open source KISS Launcher (see below) as a base to build o
 <br><br><br>
 
 
-KISS Launcher was developed by Sandoche, Neamar, and Bénilde, and is under the MIT License. Links are below:
+KISS Launcher was developed by Sandoche, Neamar, and Bénilde, and is under the MIT License. Link is below:
 https://github.com/Neamar/KISS 
