@@ -12,7 +12,7 @@ We decided to use the open source KISS Launcher (see below) as a base to build o
 - Updated more modern UI with contextual animations and Material Design concepts
 
 
-
+<br><br><br>
 
 
 KISS Launcher was developed by Sandoche, Neamar, and Bénilde, and is under the MIT License. Links are below:
