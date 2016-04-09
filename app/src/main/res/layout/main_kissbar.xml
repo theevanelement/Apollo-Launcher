@@ -3,73 +3,285 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/kiss_green"
+                android:clipChildren="false"
                 android:clipToPadding="false"
                 android:elevation="2dp">
 
-    <ImageView
-        android:id="@+id/whiteLauncherButton"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="6dp"
-        android:contentDescription="@string/main_kiss_back"
-        android:focusable="true"
-        android:onClick="onLauncherButtonClicked"
-        android:paddingBottom="4dp"
-        android:paddingLeft="1dp"
-        android:paddingRight="4dp"
-        android:paddingTop="4dp"
-        android:src="@drawable/ic_launcher_white"
-        android:tag="hideMenu"/>
-
-    <LinearLayout
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/Layout0And5"
         android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:layout_toRightOf="@+id/whiteLauncherButton"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="5dp">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/kiss_green"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:elevation="2dp">
 
-        <ImageView
-            android:id="@+id/favorite0"
-            android:layout_width="0px"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:contentDescription="@null"
-            android:onClick="onFavoriteButtonClicked"
-            android:src="@drawable/ic_contact"
-            android:tag="0"
-            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/favorite1"
-            android:layout_width="0px"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:contentDescription="@null"
-            android:onClick="onFavoriteButtonClicked"
-            android:src="@drawable/ic_contact"
-            android:tag="1"/>
+            <TextView
+                android:id="@+id/fillerText"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="25"
+                android:visibility="visible" />
 
-        <ImageView
-            android:id="@+id/favorite2"
-            android:layout_width="0px"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:contentDescription="@null"
-            android:onClick="onFavoriteButtonClicked"
-            android:src="@drawable/ic_contact"
-            android:tag="2"/>
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fav_layout_0"
+                android:layout_weight="1">
 
-        <ImageView
-            android:id="@+id/favorite3"
-            android:layout_width="0px"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:contentDescription="@null"
-            android:onClick="onFavoriteButtonClicked"
-            android:src="@drawable/ic_contact"
-            android:tag="3"/>
-    </LinearLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/favcircle0"
+                    android:layout_gravity="center"
+                    android:src="@drawable/greycircle"/>
+
+                <ImageView
+                    android:id="@+id/favorite0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:onClick="onFavoriteButtonClicked"
+                    android:src="@drawable/ic_contact"
+                    android:tag="0"
+                    />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/fillerText2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:visibility="visible" />
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fav_layout_5"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/favcircle5"
+                    android:layout_gravity="center"
+                    android:src="@drawable/greycircle"/>
+
+                <ImageView
+                    android:id="@+id/favorite5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:onClick="onFavoriteButtonClicked"
+                    android:src="@drawable/ic_contact"
+                    android:tag="5"/>
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/fillerText3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="25"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/Layout1And4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/Layout0And5"
+        android:layout_marginBottom="-15dp"
+        android:background="@color/kiss_green"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:elevation="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/fillerText4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:visibility="visible" />
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fav_layout_1"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/favcircle1"
+                    android:layout_gravity="center"
+                    android:src="@drawable/greycircle"/>
+
+                <ImageView
+                    android:id="@+id/favorite1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:onClick="onFavoriteButtonClicked"
+                    android:src="@drawable/ic_contact"
+                    android:tag="1"/>
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/fillerText5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4.5"
+                android:visibility="visible" />
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fav_layout_4"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/favcircle4"
+                    android:layout_gravity="center"
+                    android:src="@drawable/greycircle"/>
+
+                <ImageView
+                    android:id="@+id/favorite4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:onClick="onFavoriteButtonClicked"
+                    android:src="@drawable/ic_contact"
+                    android:tag="4"/>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/fillerText6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:visibility="visible" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/Layout2And3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/Layout1And4"
+        android:layout_marginBottom="-10dp"
+        android:background="@color/kiss_green"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:elevation="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/fillerText7"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="30"
+                    android:visibility="visible" />
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fav_layout_2"
+                    android:layout_weight="2" >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/favcircle2"
+                            android:layout_gravity="center"
+                            android:src="@drawable/greycircle"/>
+
+                        <ImageView
+                            android:id="@+id/favorite2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@null"
+                            android:onClick="onFavoriteButtonClicked"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_contact"
+                            android:tag="2"/>
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/fillerText8"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:visibility="visible" />
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fav_layout_3"
+                    android:layout_weight="2" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/favcircle3"
+                        android:layout_gravity="center"
+                        android:src="@drawable/greycircle"/>
+
+                    <ImageView
+                        android:id="@+id/favorite3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@null"
+                        android:onClick="onFavoriteButtonClicked"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_contact"
+                        android:tag="3"/>
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/fillerText9"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="30"
+                    android:visibility="visible" />
+
+        </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>

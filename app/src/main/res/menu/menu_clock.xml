@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/use_digital_clock"
+        android:title="@string/use_digital_clock" />
+    <item android:id="@+id/use_analog_clock"
+        android:title="@string/use_analog_clock" />
+</menu>

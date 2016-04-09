@@ -25,7 +25,7 @@
         <item name="android:windowShowWallpaper">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:textColor">@color/kiss_text_dark</item>
-        <item name="android:textColorSecondary">#7f7f7f</item>
+        <item name="android:textColorSecondary">@color/kiss_text_secondary</item>
 
         <item name="searchColor">@color/kiss_text_dark</item>
         <item name="resultColor">@color/kiss_text_dark</item>
