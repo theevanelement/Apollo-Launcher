@@ -115,6 +115,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
     private Searcher searcher;
 
     private ListView resultsListView;
+    private RelativeLayout parentRelativeLayout;
 
     private LinearLayout main_empty_layout;
     private boolean isEmptyMenuVisible = false;
@@ -247,10 +248,17 @@ public class MainActivity extends ListActivity implements QueryInterface {
                         }
 
                         hideClock();
+
+                        kissBar.setVisibility(View.INVISIBLE);
+
+                        parentRelativeLayout.setClipChildren(true);
+                        parentRelativeLayout.setClipToPadding(true);
                     }
                 }
             }
         });
+
+        parentRelativeLayout = (RelativeLayout) findViewById(R.id.RelativeLayout1);
 
         clockLayout = (RelativeLayout) findViewById(R.id.clock_layout);
         registerForContextMenu(clockLayout);
@@ -678,6 +686,9 @@ public class MainActivity extends ListActivity implements QueryInterface {
     private void displayKissBar(Boolean display) {
         final ImageView launcherButton = (ImageView) findViewById(R.id.launcherButton);
 
+        parentRelativeLayout.setClipChildren(true);
+        parentRelativeLayout.setClipToPadding(true);
+
         // get the center for the clipping circle
 //        int cx = (launcherButton.getLeft() + launcherButton.getRight()) / 2;
 //        int cy = resultsListView.getHeight() - (launcherButton.getTop() + launcherButton.getBottom()) / 2;
@@ -758,6 +769,9 @@ public class MainActivity extends ListActivity implements QueryInterface {
         final ImageView launcherButton = (ImageView) findViewById(R.id.launcherButton2);
         ArrayList<Pojo> favoritesPojo = KissApplication.getDataHandler(MainActivity.this)
                 .getFavorites(tryToRetrieve);
+
+        parentRelativeLayout.setClipChildren(false);
+        parentRelativeLayout.setClipToPadding(false);
 
         int location[] = {0, 0};
         launcherButton.getLocationInWindow(location);
