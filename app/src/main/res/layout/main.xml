@@ -4,8 +4,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:clipChildren="false"
-    android:clipToPadding="false"
     android:orientation="vertical">
 
     <View android:id="@+id/favorites_icon_expand"
@@ -37,26 +35,6 @@
             android:visibility="invisible" />
 
     </RelativeLayout>
-
-        <ListView
-            android:id="@android:id/list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/searchEditLayout"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/updated_transparent_background"
-            android:cacheColorHint="@android:color/transparent"
-            android:divider="?attr/dividerDrawable"
-            android:dividerHeight="1dp"
-            android:elevation="6dp"
-            android:outlineProvider="bounds"
-            android:stackFromBottom="true"
-            android:transcriptMode="alwaysScroll">
-        </ListView>
-
 
     <RelativeLayout
         android:id="@+id/searchEditLayout"
@@ -166,6 +144,26 @@
             android:tint="?attr/searchColor"
             android:visibility="visible"/>
     </RelativeLayout>
+
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/searchEditLayout"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/updated_transparent_background"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="?attr/dividerDrawable"
+            android:dividerHeight="1dp"
+            android:elevation="6dp"
+            android:outlineProvider="bounds"
+            android:stackFromBottom="true"
+            android:transcriptMode="alwaysScroll">
+        </ListView>
+
 
     <ScrollView
         android:id="@android:id/empty"
